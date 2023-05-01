@@ -133,7 +133,7 @@
     "branches": [
       "master"
     ],
-    "repositoryUrl": "https://github.com/eduardoconti/buque-api.git",
+    "repositoryUrl": "https://github.com/eduardoconti/buque.git",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
