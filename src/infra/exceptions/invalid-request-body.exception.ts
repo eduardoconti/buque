@@ -1,9 +1,9 @@
 import { BaseException, Status } from '@domain/exceptions';
 
-export type InvalidFields = {
+export interface InvalidFields {
   field: string;
   reason: string;
-};
+}
 
 export class InvalidRequestBodyException extends BaseException {
   readonly code = Status.INVALID_REQUEST;

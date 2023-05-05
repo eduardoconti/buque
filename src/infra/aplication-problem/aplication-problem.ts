@@ -12,11 +12,11 @@ export class AplicationProblem {
   invalidFields?: InvalidFields[];
 
   private constructor(props: Partial<AplicationProblem>) {
-    this.status = props?.status ?? HttpStatus.INTERNAL_SERVER_ERROR;
-    this.title = props?.title ?? 'Internal server error';
-    this.type = props?.type ?? 'about:blank';
-    this.detail = props?.detail;
-    this.invalidFields = props?.invalidFields;
+    this.status = props.status ?? HttpStatus.INTERNAL_SERVER_ERROR;
+    this.title = props.title ?? 'Internal server error';
+    this.type = props.type ?? 'about:blank';
+    this.detail = props.detail;
+    this.invalidFields = props.invalidFields;
   }
 
   static createFromHttpException(error: HttpException): AplicationProblem {
@@ -52,7 +52,7 @@ export class AplicationProblem {
     return new AplicationProblem({ title, detail: message, status });
   }
 
-  static aplicationStatusToHttp(code: string): number {
+  static aplicationStatusToHttp(code: Status): number {
     if (code === Status.UNAUTHORIZED) return HttpStatus.UNAUTHORIZED;
     if (code === Status.INVALID_REQUEST) return HttpStatus.BAD_REQUEST;
     if (code === Status.SERVICE_UNAVAILABLE)
@@ -67,12 +67,12 @@ export class AplicationProblem {
       title: this.title,
       detail: this.detail,
       type: this.type,
-      invalid_fields: this?.invalidFields,
+      invalid_fields: this.invalidFields,
     };
   }
 }
 
-type InvalidFields = {
+interface InvalidFields {
   field: string;
   reason: string;
-};
+}

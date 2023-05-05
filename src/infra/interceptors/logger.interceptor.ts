@@ -21,9 +21,9 @@ export class LoggingInterceptor implements NestInterceptor {
         try {
           this.logger.log(
             {
-              path: req?.path,
-              headers: req?.headers,
-              input: req?.body,
+              path: req.path,
+              headers: req.headers,
+              input: req.body,
               output,
               requestTime: `${Date.now() - now}ms`,
             },

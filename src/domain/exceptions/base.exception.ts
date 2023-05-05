@@ -1,6 +1,6 @@
 export interface SerializedException<T = unknown> {
   message: string;
-  code: string;
+  code: Status;
   stack?: string;
   metadata?: T;
 }
@@ -11,7 +11,7 @@ export abstract class BaseException extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 
-  abstract code: string;
+  abstract code: Status;
 
   toJSON<T>(): SerializedException<T> {
     return {

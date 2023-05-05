@@ -1,4 +1,4 @@
-export type TokenPayload = {
+export interface TokenPayload {
   userName: string;
   userId: string;
-};
+}

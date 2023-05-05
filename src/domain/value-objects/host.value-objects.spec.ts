@@ -4,7 +4,7 @@ import { Host } from './host.value-object';
 
 describe('Host', () => {
   describe('constructor', () => {
-    it('should create a new Host object', async () => {
+    it('should create a new Host object', () => {
       const host = new Host('http://localhost:3005/pix');
       expect(host).toBeDefined();
       expect(host.value).toBeDefined();

@@ -3,12 +3,14 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { DateVO } from '@domain/value-objects';
 
-type PostProps = {
+type Body = Record<string, unknown>;
+type Headers = Record<string, string>;
+interface PostProps {
   url: string;
-  body?: any;
-  headers?: any;
+  body?: Body;
+  headers?: Headers;
   timeOut?: number;
-};
+}
 export interface IHttpService {
   post<Response>(props: PostProps): Promise<Response>;
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { HttpService as Axios } from '@nestjs/axios';
 import { Logger, LoggerService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -49,7 +51,7 @@ describe('HttpService', () => {
 
     httpService = app.get<IHttpService>(HttpService);
     mockLogger = app.get<LoggerService>(Logger);
-    axiosService = app.get(Axios);
+    axiosService = app.get<Axios>(Axios);
   });
   afterEach(() => {
     jest.clearAllMocks();

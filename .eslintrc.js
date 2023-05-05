@@ -7,8 +7,10 @@ module.exports = {
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'eslint-plugin-import-helpers'],
   extends: [
-    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict"
   ],
   root: true,
   env: {
@@ -35,6 +37,47 @@ module.exports = {
           ['parent', 'sibling', 'index'],
         ],
         alphabetize: { order: 'asc', ignoreCase: true },
-      },]
+      },],
+      "@typescript-eslint/no-extraneous-class": "warn"
   },
+  overrides: [
+    {
+      files: ["**/*.spec.ts"],
+      rules: {
+        "@typescript-eslint/unbound-method": "off",
+      },
+    },
+    {
+      files: ["**/*.module.ts"],
+      rules: {
+        "@typescript-eslint/no-extraneous-class": "off"
+      },
+    },
+    {
+      files: ["main.ts"],
+      rules: {
+        "@typescript-eslint/no-floating-promises": "off"
+      },
+    },
+    {
+      files: ["**/*.strategy.ts", "validation.pipe.ts"],
+      rules: {
+        "@typescript-eslint/no-unsafe-call": "off"
+      },
+    },
+    {
+      files: ["validation.pipe.ts"],
+      rules: {
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off"
+      },
+    },
+    {
+      files: ["validation.pipe.ts", "logger.interceptor.ts"],
+      rules: {
+        "@typescript-eslint/no-unsafe-assignment": "off",
+      },
+    },
+  ],
 };

@@ -53,9 +53,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     SentryModule.forRootAsync({
       inject: [ConfigService],
       imports: [],
-      useFactory: async (
-        configService: ConfigService<EnvironmentVariables>,
-      ) => ({
+      useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
         dsn: configService.get('SENTRY_DSN'),
         debug: true,
         tracesSampleRate: 1.0,
@@ -70,11 +68,11 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
         ],
         logLevels: ['debug'],
         beforeSend(event, hint) {
-          const exception = hint?.originalException;
+          const exception = hint.originalException;
           if (exception instanceof BaseException) {
             event.extra = {
               message: exception.message,
-              metadata: exception?.metadata,
+              metadata: exception.metadata,
             };
           }
 
@@ -85,9 +83,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
-      useFactory: async (
-        configService: ConfigService<EnvironmentVariables>,
-      ) => ({
+      useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
         secret: configService.getOrThrow('JWT_KEY'),
         signOptions: { expiresIn: '1d' },
       }),

@@ -28,14 +28,17 @@ async function bootstrap() {
   });
 
   const prismaService = app.get(PrismaService);
-  await prismaService.enableShutdownHooks(app);
+  prismaService.enableShutdownHooks(app);
 
   const configService = app.get(ConfigService<EnvironmentVariables>);
   const config = new DocumentBuilder()
     .setTitle('API Pix')
     .setDescription('API para gerar QrCode e processar pagamentos com `PIX`')
     .setVersion('1.0')
-    .addServer(`http://localhost:${configService.get('PORT')}`, 'Local')
+    .addServer(
+      `http://localhost:${configService.get<number>('PORT') ?? 3000}`,
+      'Local',
+    )
     .addServer(`https://buque-api-qx46.onrender.com`, 'Production')
     .addTag('health-check', 'Endpoints para monitoramento da api')
     .addTag('auth', 'Endpoints para autenticação')

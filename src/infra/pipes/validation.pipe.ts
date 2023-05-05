@@ -10,7 +10,7 @@ import { validate, ValidationError } from 'class-validator';
 import { InvalidFields, InvalidRequestBodyException } from '../exceptions';
 
 @Injectable()
-export class ValidationPipe implements PipeTransform<any> {
+export class ValidationPipe implements PipeTransform {
   async transform(value: any, { metatype }: ArgumentMetadata) {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
@@ -23,8 +23,8 @@ export class ValidationPipe implements PipeTransform<any> {
     return value;
   }
 
-  private toValidate(metatype: Type<any>): boolean {
-    const types: Type<any>[] = [String, Boolean, Number, Array, Object];
+  private toValidate(metatype: Type): boolean {
+    const types: Type[] = [String, Boolean, Number, Array, Object];
     return !types.includes(metatype);
   }
 

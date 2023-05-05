@@ -4,7 +4,7 @@ import { Nome } from './nome.value-object';
 
 describe('Nome', () => {
   describe('constructor', () => {
-    it('should create a new Nome object', async () => {
+    it('should create a new Nome object', () => {
       const nome = new Nome('Eduardo Conti');
       expect(nome).toBeDefined();
       expect(nome.value).toBeDefined();

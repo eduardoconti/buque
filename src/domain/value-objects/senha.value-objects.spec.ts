@@ -4,11 +4,11 @@ import { Senha } from './senha.value-object';
 
 describe('Senha', () => {
   describe('constructor', () => {
-    it('should create a new Senha object', async () => {
+    it('should create a new Senha object', () => {
       const senha = new Senha('Eduardo Conti');
       expect(senha).toBeDefined();
       expect(senha.value).toBeDefined();
-      expect(Senha.isValueObject(senha)).toBeTruthy;
+      expect(Senha.isValueObject(senha)).toBeTruthy();
     });
   });
   describe('validate', () => {

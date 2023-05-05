@@ -2,20 +2,20 @@ import { AggregateRoot } from '@domain/core';
 
 import { Email, Nome, Senha, UUID } from '../value-objects';
 
-export type UserProps = {
+export interface UserProps {
   nome: Nome;
   email: Email;
   senha: Senha;
-};
+}
 
-export type UserPrimitivesProps = {
+export interface UserPrimitivesProps {
   id: string;
   nome: string;
   email: string;
   senha: string;
   dataInclusao: Date;
   dataAlteracao: Date;
-};
+}
 
 type CreateUserEntity = Pick<UserPrimitivesProps, 'nome' | 'email' | 'senha'>;
 

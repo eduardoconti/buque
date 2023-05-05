@@ -1,12 +1,12 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 
-export type ApiErrorResponseProps = {
+export interface ApiErrorResponseProps {
   title: string;
   status: number;
   detail: string;
   type?: string;
-};
+}
 export const ApiErrorResponse = (props: ApiErrorResponseProps) => {
   return applyDecorators(
     ApiResponse({

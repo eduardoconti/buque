@@ -3,15 +3,15 @@ import { Email, Senha } from '@domain/value-objects';
 
 import { UnauthorizedException } from '@infra/exceptions';
 
-export type UserAuthUseCaseInput = {
+export interface UserAuthUseCaseInput {
   userName: string;
   senha: string;
-};
+}
 
-export type UserAuthUseCaseOutput = {
+export interface UserAuthUseCaseOutput {
   userId: string;
   userName: string;
-};
+}
 
 export type IUserAuthUseCase = IUseCase<
   UserAuthUseCaseInput,

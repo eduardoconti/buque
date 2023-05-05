@@ -59,4 +59,4 @@ export type JsonValue = string | JsonObject | JsonArray;
 
 export type JsonObject = { [Key in string]?: JsonValue };
 
-export type JsonArray = Array<JsonValue>;
+export type JsonArray = JsonValue[];

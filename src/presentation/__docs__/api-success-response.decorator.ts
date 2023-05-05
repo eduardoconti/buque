@@ -1,12 +1,12 @@
 import { applyDecorators, HttpStatus, Type } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 
-type Props<TModel> = {
+interface Props<TModel> {
   model: TModel;
   statusCode?: HttpStatus;
   isArray?: boolean;
-};
-export const ApiSuccessResponse = <TModel extends Type<any>>(
+}
+export const ApiSuccessResponse = <TModel extends Type>(
   props: Props<TModel>,
 ) => {
   return applyDecorators(

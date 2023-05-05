@@ -15,6 +15,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   handleRequest<D>(err: any, user: D, info: any) {
     if (info) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { nome } = info;
       switch (nome) {
         case 'JsonWebTokenError':

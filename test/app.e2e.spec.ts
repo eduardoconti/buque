@@ -27,7 +27,7 @@ describe('AppController (e2e)', () => {
     app.useGlobalFilters(new HttpExceptionFilter(logger));
 
     const prismaService = app.get(PrismaService);
-    await prismaService.enableShutdownHooks(app);
+    prismaService.enableShutdownHooks(app);
 
     await app.init();
   });

@@ -7,6 +7,7 @@ describe('SentryMonitorError', () => {
   let mockClient: jest.Mocked<SentryService>;
 
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     mockClient = {
       instance: jest.fn().mockReturnThis(),
       captureException: jest.fn(),

@@ -4,7 +4,7 @@ import { UUID } from './uuid.value-object';
 
 describe('UUID', () => {
   describe('constructor', () => {
-    it('should create a new UUID object', async () => {
+    it('should create a new UUID object', () => {
       const uuid = new UUID('b85381d7-174f-4c0a-a2c8-aa93a399965d');
       expect(uuid).toBeDefined();
       expect(uuid.value).toBeDefined();
