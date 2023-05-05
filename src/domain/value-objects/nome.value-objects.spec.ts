@@ -1,34 +1,34 @@
 import { ArgumentInvalidException } from '@domain/exceptions';
 
-import { Name } from './name.value-object';
+import { Nome } from './nome.value-object';
 
-describe('Name', () => {
+describe('Nome', () => {
   describe('constructor', () => {
-    it('should create a new Name object', async () => {
-      const name = new Name('Eduardo Conti');
-      expect(name).toBeDefined();
-      expect(name.value).toBeDefined();
-      expect(Name.isValueObject(name)).toBeTruthy;
+    it('should create a new Nome object', async () => {
+      const nome = new Nome('Eduardo Conti');
+      expect(nome).toBeDefined();
+      expect(nome.value).toBeDefined();
+      expect(Nome.isValueObject(nome)).toBeTruthy;
     });
   });
   describe('validate', () => {
-    it('should throw ArgumentInvalidException if name not be greater than 2 chars', () => {
+    it('should throw ArgumentInvalidException if nome not be greater than 2 chars', () => {
       expect(() => {
-        new Name('EA');
+        new Nome('EA');
       }).toThrowError(ArgumentInvalidException);
       expect(() => {
-        new Name('');
+        new Nome('');
       }).toThrowError(ArgumentInvalidException);
     });
 
-    it('should throw ArgumentInvalidException if name not less than 100 chars', () => {
+    it('should throw ArgumentInvalidException if nome not less than 100 chars', () => {
       expect(() => {
-        new Name(
+        new Nome(
           'ASDDDDASDASDASDASDASDASDASDASDASASDASDASDASDADAS ASDASDADASDASDSAD ASDASDASDASDASDASD ASDDDDASDASDASDASDASDASDASD',
         );
       }).toThrowError(ArgumentInvalidException);
       expect(() => {
-        new Name('');
+        new Nome('');
       }).toThrowError(ArgumentInvalidException);
     });
   });

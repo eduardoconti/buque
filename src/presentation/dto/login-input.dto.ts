@@ -9,5 +9,5 @@ export class LoginInput {
   @ApiProperty({
     example: 'teste@123',
   })
-  password!: string;
+  senha!: string;
 }

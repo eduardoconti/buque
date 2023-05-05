@@ -1,9 +1,9 @@
 import { DomainPrimitive, ValueObject } from '@domain/core';
 import { ArgumentInvalidException } from '@domain/exceptions';
 
-export class Name extends ValueObject<string> {
-  public constructor(name: string) {
-    super({ value: name });
+export class Nome extends ValueObject<string> {
+  public constructor(nome: string) {
+    super({ value: nome });
   }
 
   get value(): string {
@@ -13,7 +13,7 @@ export class Name extends ValueObject<string> {
   protected validate({ value }: DomainPrimitive<string>): void {
     if (value.length <= 2 || value.length > 100) {
       throw new ArgumentInvalidException(
-        'Name must be greater than 2 and less than 100 characters.',
+        'Nome must be greater than 2 and less than 100 characters.',
       );
     }
   }

@@ -11,20 +11,20 @@ export class RegisterUserOutput {
   @ApiProperty({
     example: 'Eduardo Conti',
   })
-  name!: string;
+  nome!: string;
 
   @ApiProperty({
     example: 'es.eduardoconti@gmail.com',
   })
   email!: string;
   static fromUseCaseOutput({
-    name,
+    nome,
     email,
     id,
   }: RegisterUserUseCaseOutput): RegisterUserOutput {
     return {
       email,
-      name,
+      nome,
       id,
     };
   }

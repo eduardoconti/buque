@@ -58,14 +58,14 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(entity: UserEntity): Promise<UserEntity> {
-    const { id, email, name, password } = UserModel.fromEntity(entity);
+    const { id, email, nome, senha } = UserModel.fromEntity(entity);
     try {
       const saved = await this.prismaService.user.update({
         data: {
           email,
-          name,
-          password,
-          updated_at: DateVO.now().value,
+          nome,
+          senha,
+          data_alteracao: DateVO.now().value,
         },
         where: { id },
       });
@@ -82,7 +82,7 @@ export class UserRepository implements IUserRepository {
           email: email.value,
         },
       })
-      .catch((e) => {
+      .catch((e: any) => {
         throw new UserRepositoryException('failed to find user on database', e);
       });
 

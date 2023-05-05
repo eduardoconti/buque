@@ -4,43 +4,43 @@ export type UniqueEntityID = string;
 
 export interface BaseEntityProps {
   id: ID;
-  createdAt: DateVO;
-  updatedAt: DateVO;
+  dataInclusao: DateVO;
+  dataAlteracao: DateVO;
 }
 export interface CreateEntityProps<EntityProps> {
   props: EntityProps;
   id: ID;
-  createdAt?: DateVO;
-  updatedAt?: DateVO;
+  dataInclusao?: DateVO;
+  dataAlteracao?: DateVO;
 }
 
 export abstract class Entity<EntityProps> {
   protected abstract _id: ID;
-  protected readonly _createdAt: DateVO;
+  protected readonly _dataInclusao: DateVO;
   protected readonly _updatedAt: DateVO;
   public readonly props: EntityProps;
 
   constructor({
     id,
-    createdAt,
-    updatedAt,
+    dataInclusao,
+    dataAlteracao,
     props,
   }: CreateEntityProps<EntityProps>) {
     this.setId(id);
     this.props = props;
-    this._createdAt = createdAt ?? DateVO.now();
-    this._updatedAt = updatedAt ?? DateVO.now();
+    this._dataInclusao = dataInclusao ?? DateVO.now();
+    this._updatedAt = dataAlteracao ?? DateVO.now();
   }
 
   private setId(id: ID): void {
     this._id = id;
   }
 
-  get createdAt(): DateVO {
-    return this._createdAt;
+  get dataInclusao(): DateVO {
+    return this._dataInclusao;
   }
 
-  get updatedAt(): DateVO {
+  get dataAlteracao(): DateVO {
     return this._updatedAt;
   }
 

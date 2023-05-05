@@ -32,9 +32,9 @@ export class RegisterUserController {
     detail: 'database error',
   })
   async handle(@Body() data: RegisterUserInput): Promise<RegisterUserOutput> {
-    const { email, name, id } = await this.registerUserUseCase.execute(
+    const { email, nome, id } = await this.registerUserUseCase.execute(
       RegisterUserInput.toUseCaseInput(data),
     );
-    return { id, email, name };
+    return { id, email, nome };
   }
 }

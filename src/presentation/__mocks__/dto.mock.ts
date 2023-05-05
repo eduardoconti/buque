@@ -3,15 +3,15 @@ import { TokenPayload } from '@app/contracts';
 import { RegisterUserInput } from '@presentation/dto';
 
 export const mockRegisterUserInput: RegisterUserInput = {
-  name: 'Eduardo Ferreira Conti',
+  nome: 'Eduardo Ferreira Conti',
   email: 'es.eduardoconti@gmail.com',
-  password: 'teste@123',
+  senha: 'teste@123',
 };
 
 export const mockRegisterUserInputRequiredFields: RegisterUserInput = {
-  name: 'Eduardo Ferreira Conti',
+  nome: 'Eduardo Ferreira Conti',
   email: 'es.eduardoconti@gmail.com',
-  password: 'teste@123',
+  senha: 'teste@123',
 };
 
 export const mockTokenPayload: TokenPayload = {

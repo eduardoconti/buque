@@ -1,49 +1,49 @@
 import { UserEntity } from '@domain/entities';
-import { DateVO, Email, Name, Password, UUID } from '@domain/value-objects';
+import { DateVO, Email, Nome, Senha, UUID } from '@domain/value-objects';
 
 export class UserModel {
   id!: string;
 
-  name!: string;
+  nome!: string;
 
   email!: string;
 
-  password!: string;
+  senha!: string;
 
-  created_at!: Date;
+  data_inclusao!: Date;
 
-  updated_at!: Date;
+  data_alteracao!: Date;
 
   static fromEntity(userEntity: UserEntity): UserModel {
-    const { id, name, email, password, createdAt, updatedAt } =
+    const { id, nome, email, senha, dataInclusao, dataAlteracao } =
       UserEntity.toPrimitives(userEntity);
 
     return {
       id,
-      name,
+      nome,
       email,
-      password,
-      created_at: createdAt,
-      updated_at: updatedAt,
+      senha,
+      data_inclusao: dataInclusao,
+      data_alteracao: dataAlteracao,
     };
   }
 
   static toEntity({
     id,
-    name,
+    nome,
     email,
-    password,
-    created_at,
-    updated_at,
+    senha,
+    data_inclusao,
+    data_alteracao,
   }: UserModel): UserEntity {
     return new UserEntity({
       id: new UUID(id),
-      createdAt: new DateVO(created_at),
-      updatedAt: new DateVO(updated_at),
+      dataInclusao: new DateVO(data_inclusao),
+      dataAlteracao: new DateVO(data_alteracao),
       props: {
-        name: new Name(name),
+        nome: new Nome(nome),
         email: new Email(email),
-        password: new Password(password),
+        senha: new Senha(senha),
       },
     });
   }

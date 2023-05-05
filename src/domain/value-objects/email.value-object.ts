@@ -2,8 +2,8 @@ import { DomainPrimitive, ValueObject } from '@domain/core';
 import { ArgumentInvalidException } from '@domain/exceptions';
 
 export class Email extends ValueObject<string> {
-  public constructor(name: string) {
-    super({ value: name });
+  public constructor(nome: string) {
+    super({ value: nome });
   }
 
   get value(): string {

@@ -1,6 +1,6 @@
 type Index = 'charge';
 export type ExternalLogs<T> = {
-  createdAt: Date;
+  dataInclusao: Date;
   service: string;
   event: T;
 };

@@ -1,42 +1,39 @@
 import { AggregateRoot } from '@domain/core';
 
-import { Email, Name, Password, UUID } from '../value-objects';
+import { Email, Nome, Senha, UUID } from '../value-objects';
 
 export type UserProps = {
-  name: Name;
+  nome: Nome;
   email: Email;
-  password: Password;
+  senha: Senha;
 };
 
 export type UserPrimitivesProps = {
   id: string;
-  name: string;
+  nome: string;
   email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  senha: string;
+  dataInclusao: Date;
+  dataAlteracao: Date;
 };
 
-type CreateUserEntity = Pick<
-  UserPrimitivesProps,
-  'name' | 'email' | 'password'
->;
+type CreateUserEntity = Pick<UserPrimitivesProps, 'nome' | 'email' | 'senha'>;
 
 export class UserEntity extends AggregateRoot<UserProps> {
   protected readonly _id!: UUID;
 
   static async create({
-    name,
+    nome,
     email,
-    password,
+    senha,
   }: CreateUserEntity): Promise<UserEntity> {
     const id = UUID.generate();
     const entity = new UserEntity({
       id,
       props: {
-        name: new Name(name),
+        nome: new Nome(nome),
         email: new Email(email),
-        password: await Password.hash(password),
+        senha: await Senha.hash(senha),
       },
     });
 
@@ -46,16 +43,16 @@ export class UserEntity extends AggregateRoot<UserProps> {
   static toPrimitives({
     id,
     props,
-    createdAt,
-    updatedAt,
+    dataInclusao,
+    dataAlteracao,
   }: UserEntity): UserPrimitivesProps {
     return {
       id: id.value,
-      name: props.name.value,
+      nome: props.nome.value,
       email: props.email.value,
-      password: props.password.value,
-      createdAt: createdAt.value,
-      updatedAt: updatedAt.value,
+      senha: props.senha.value,
+      dataInclusao: dataInclusao.value,
+      dataAlteracao: dataAlteracao.value,
     };
   }
 }

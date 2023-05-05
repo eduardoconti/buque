@@ -1,11 +1,11 @@
 import { IUseCase, IUserRepository } from '@domain/core';
-import { Email, Password } from '@domain/value-objects';
+import { Email, Senha } from '@domain/value-objects';
 
 import { UnauthorizedException } from '@infra/exceptions';
 
 export type UserAuthUseCaseInput = {
   userName: string;
-  password: string;
+  senha: string;
 };
 
 export type UserAuthUseCaseOutput = {
@@ -19,17 +19,17 @@ export type IUserAuthUseCase = IUseCase<
 >;
 export class UserAuthUseCase implements IUserAuthUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
-  async execute({ userName, password }: UserAuthUseCaseInput) {
+  async execute({ userName, senha }: UserAuthUseCaseInput) {
     const user = await this.userRepository.findOne({
       email: new Email(userName),
     });
 
-    if (!(await Password.compareHash(password, user.props.password.value))) {
+    if (!(await Senha.compareHash(senha, user.props.senha.value))) {
       throw new UnauthorizedException('invalid credentials');
     }
     return {
       userId: user.id.value,
-      userName: user.props.name.value,
+      userName: user.props.nome.value,
     };
   }
 }

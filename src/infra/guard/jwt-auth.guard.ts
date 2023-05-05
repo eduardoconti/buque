@@ -15,8 +15,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   handleRequest<D>(err: any, user: D, info: any) {
     if (info) {
-      const { name } = info;
-      switch (name) {
+      const { nome } = info;
+      switch (nome) {
         case 'JsonWebTokenError':
           throw new InvalidTokenException();
         case 'TokenExpiredError':

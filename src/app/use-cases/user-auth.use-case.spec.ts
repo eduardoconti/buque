@@ -43,12 +43,12 @@ describe('userAuthUseCase', () => {
     expect(result).toBeDefined();
   });
 
-  it('should throw UnauthorizedException when password compare hash failed', async () => {
+  it('should throw UnauthorizedException when senha compare hash failed', async () => {
     jest.spyOn(userRepository, 'findOne').mockResolvedValue(mockUserEntity);
     await expect(
       userAuthUseCase.execute({
         ...mockUserAuthUseCaseInput,
-        password: 'teste!123',
+        senha: 'teste!123',
       }),
     ).rejects.toThrowError(UnauthorizedException);
   });

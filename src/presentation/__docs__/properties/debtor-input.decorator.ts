@@ -7,9 +7,9 @@ export const DebtorInputProperty = () => {
       type: 'object',
       oneOf: [
         {
-          required: ['name', 'cpf'],
+          required: ['nome', 'cpf'],
           properties: {
-            name: {
+            nome: {
               type: 'string',
               example: 'Eduardo Conti',
             },
@@ -21,9 +21,9 @@ export const DebtorInputProperty = () => {
           },
         },
         {
-          required: ['name', 'cnpj'],
+          required: ['nome', 'cnpj'],
           properties: {
-            name: {
+            nome: {
               type: 'string',
               example: 'Eduardo Conti',
             },

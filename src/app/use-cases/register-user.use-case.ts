@@ -6,12 +6,12 @@ import { Email } from '@domain/value-objects';
 
 export type RegisterUserUseCaseOutput = Omit<
   RegisterUserUseCaseInput,
-  'password'
+  'senha'
 > & { id: string };
 export type RegisterUserUseCaseInput = {
-  name: string;
+  nome: string;
   email: string;
-  password: string;
+  senha: string;
 };
 
 export type IRegisterUserUseCase = IUseCase<
@@ -20,21 +20,21 @@ export type IRegisterUserUseCase = IUseCase<
 >;
 export class RegisterUserUseCase implements IRegisterUserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
-  async execute({ name, email, password }: RegisterUserUseCaseInput) {
+  async execute({ nome, email, senha }: RegisterUserUseCaseInput) {
     if (await this.userRepository.exists(new Email(email))) {
       throw new UserAlreadyExistsException();
     }
     const userEntity = await UserEntity.create({
-      name,
+      nome,
       email,
-      password,
+      senha,
     });
 
     const saved = await this.userRepository.save(userEntity);
     const userProps = UserEntity.toPrimitives(saved);
 
     return {
-      name: userProps.name,
+      nome: userProps.nome,
       email: userProps.email,
       id: saved.id.value,
     };

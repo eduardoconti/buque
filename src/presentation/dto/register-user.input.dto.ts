@@ -10,7 +10,7 @@ export class RegisterUserInput {
   @ApiProperty({
     example: 'Eduardo Conti',
   })
-  name!: string;
+  nome!: string;
 
   @MinLength(2)
   @MaxLength(255)
@@ -18,7 +18,7 @@ export class RegisterUserInput {
     example: 'teste@123',
   })
   @IsString()
-  password!: string;
+  senha!: string;
 
   @ApiProperty({
     example: 'es.eduardoconti@gmail.com',
@@ -29,14 +29,14 @@ export class RegisterUserInput {
   email!: string;
 
   static toUseCaseInput({
-    name,
+    nome,
     email,
-    password,
+    senha,
   }: RegisterUserInput): RegisterUserUseCaseInput {
     return {
       email,
-      password,
-      name,
+      senha,
+      nome,
     };
   }
 }
