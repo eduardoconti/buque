@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 
 import { ArgumentInvalidException } from '@domain/exceptions';
 
-import { DomainPrimitive } from '../core';
+import type { DomainPrimitive } from '../core';
 import { ID } from './id.value-object';
 
 export class UUID extends ID {

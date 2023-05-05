@@ -32,7 +32,7 @@ export class AuthController {
   @ApiOperation({
     summary: 'Autenticação',
   })
-  async handle(@User() user: UserAuthUseCaseOutput) {
+  async handle(@User() user: UserAuthUseCaseOutput): Promise<LoginOutput> {
     return {
       access_token: await this.jwtService.signAsync(user),
     };

@@ -1,6 +1,6 @@
-import { Provider } from '@nestjs/common';
+import type { Provider } from '@nestjs/common';
 
-import { IUserRepository } from '@domain/core';
+import type { IUserRepository } from '@domain/core';
 
 import { UserRepository } from '@infra/database/prisma';
 

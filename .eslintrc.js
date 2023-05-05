@@ -19,6 +19,8 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    "no-magic-numbers": "off",
+    "@typescript-eslint/no-magic-numbers": "error",
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -38,13 +40,18 @@ module.exports = {
         ],
         alphabetize: { order: 'asc', ignoreCase: true },
       },],
-      "@typescript-eslint/no-extraneous-class": "warn"
+    "@typescript-eslint/no-extraneous-class": "warn",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    //"@typescript-eslint/explicit-member-accessibility": "warn",
+    "@typescript-eslint/member-ordering": "warn",   
   },
   overrides: [
     {
-      files: ["**/*.spec.ts"],
+      files: ["**/*.spec.ts", "**/*.dto.ts"],
       rules: {
         "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-magic-numbers": "off",
       },
     },
     {
@@ -79,5 +86,11 @@ module.exports = {
         "@typescript-eslint/no-unsafe-assignment": "off",
       },
     },
+    {
+      files:["**/*.decorator.ts"],
+      rules:{
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    }
   ],
 };

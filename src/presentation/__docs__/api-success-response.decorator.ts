@@ -1,4 +1,5 @@
-import { applyDecorators, HttpStatus, Type } from '@nestjs/common';
+import type { Type } from '@nestjs/common';
+import { applyDecorators, HttpStatus } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 
 interface Props<TModel> {

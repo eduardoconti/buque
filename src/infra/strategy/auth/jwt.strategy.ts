@@ -4,10 +4,10 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { TokenPayload } from '@app/contracts';
-import { UserAuthUseCaseOutput } from '@app/use-cases';
+import type { TokenPayload } from '@app/contracts';
+import type { UserAuthUseCaseOutput } from '@app/use-cases';
 
-import { EnvironmentVariables } from '@main/config';
+import type { EnvironmentVariables } from '@main/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

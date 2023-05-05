@@ -1,10 +1,12 @@
-import { Response } from 'express';
+import type { Response } from 'express';
 
-import { AplicationProblem } from './aplication-problem';
-export class HttpErrorResponse {
-  static send(res: Response, aplicationProblem: AplicationProblem) {
-    res.setHeader('content-type', 'aplication/problem+json');
-    res.status(aplicationProblem.status).json(aplicationProblem.toJSON());
-    return;
-  }
+import type { AplicationProblem } from './aplication-problem';
+
+export function send(
+  res: Response,
+  aplicationProblem: AplicationProblem,
+): void {
+  res.setHeader('content-type', 'aplication/problem+json');
+  res.status(aplicationProblem.status).json(aplicationProblem.toJSON());
+  return;
 }

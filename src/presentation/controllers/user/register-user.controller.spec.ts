@@ -1,7 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
 import { mockRegisterUserUseCaseOutput } from '@app/__mocks__';
-import { IRegisterUserUseCase, RegisterUserUseCase } from '@app/use-cases';
+import type { IRegisterUserUseCase } from '@app/use-cases';
+import { RegisterUserUseCase } from '@app/use-cases';
 
 import {
   mockRegisterUserInput,

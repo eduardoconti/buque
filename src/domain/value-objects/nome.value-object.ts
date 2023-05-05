@@ -1,4 +1,5 @@
-import { DomainPrimitive, ValueObject } from '@domain/core';
+import type { DomainPrimitive } from '@domain/core';
+import { ValueObject } from '@domain/core';
 import { ArgumentInvalidException } from '@domain/exceptions';
 
 export class Nome extends ValueObject<string> {
@@ -11,7 +12,9 @@ export class Nome extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>): void {
-    if (value.length <= 2 || value.length > 100) {
+    const minLength = 2;
+    const maxLength = 100;
+    if (value.length <= minLength || value.length > maxLength) {
       throw new ArgumentInvalidException(
         'Nome must be greater than 2 and less than 100 characters.',
       );

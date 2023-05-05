@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
 import { mockUserEntity } from '@domain/__mocks__';
-import { IUserRepository } from '@domain/core';
+import type { IUserRepository } from '@domain/core';
 
 import {
   UserNotFoundException,

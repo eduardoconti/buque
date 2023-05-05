@@ -1,4 +1,4 @@
-import { IUseCase, IUserRepository } from '@domain/core';
+import type { IUseCase, IUserRepository } from '@domain/core';
 import { Email, Senha } from '@domain/value-objects';
 
 import { UnauthorizedException } from '@infra/exceptions';
@@ -19,7 +19,10 @@ export type IUserAuthUseCase = IUseCase<
 >;
 export class UserAuthUseCase implements IUserAuthUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
-  async execute({ userName, senha }: UserAuthUseCaseInput) {
+  async execute({
+    userName,
+    senha,
+  }: UserAuthUseCaseInput): Promise<UserAuthUseCaseOutput> {
     const user = await this.userRepository.findOne({
       email: new Email(userName),
     });

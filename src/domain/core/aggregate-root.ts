@@ -1,4 +1,4 @@
-import { DomainEvent } from './domain-event';
+import type { DomainEvent } from './domain-event';
 import { Entity } from './entity';
 
 export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
@@ -8,11 +8,11 @@ export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
     return this._domainEvents;
   }
 
-  protected addEvent(domainEvent: DomainEvent): void {
-    this._domainEvents.push(domainEvent);
-  }
-
   public clearEvents(): void {
     this._domainEvents = [];
+  }
+
+  protected addEvent(domainEvent: DomainEvent): void {
+    this._domainEvents.push(domainEvent);
   }
 }

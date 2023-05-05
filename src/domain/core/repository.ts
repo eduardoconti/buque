@@ -1,8 +1,8 @@
-import { UserEntity, UserProps } from '@domain/entities';
-import { Email } from '@domain/value-objects';
+import type { UserEntity, UserProps } from '@domain/entities';
+import type { Email } from '@domain/value-objects';
 
-import { ID } from '../value-objects/id.value-object';
-import { BaseEntityProps } from './entity';
+import type { ID } from '../value-objects/id.value-object';
+import type { BaseEntityProps } from './entity';
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
@@ -44,7 +44,7 @@ export interface IDelete<Entity> {
   delete(entity: Entity): Promise<Entity>;
 }
 export interface IQuery<Entity> {
-  sql(sql: string): Promise<Entity | Entity[] | void>;
+  sql(sql: string): Promise<Entity | Entity[] | undefined>;
 }
 
 export interface IUserRepository

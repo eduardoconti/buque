@@ -1,4 +1,6 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import type { ExecutionContext } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import {

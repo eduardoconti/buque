@@ -1,6 +1,6 @@
 import { UserAlreadyExistsException } from '@app/exceptions';
 
-import { IUseCase, IUserRepository } from '@domain/core';
+import type { IUseCase, IUserRepository } from '@domain/core';
 import { UserEntity } from '@domain/entities';
 import { Email } from '@domain/value-objects';
 
@@ -20,7 +20,11 @@ export type IRegisterUserUseCase = IUseCase<
 >;
 export class RegisterUserUseCase implements IRegisterUserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
-  async execute({ nome, email, senha }: RegisterUserUseCaseInput) {
+  async execute({
+    nome,
+    email,
+    senha,
+  }: RegisterUserUseCaseInput): Promise<RegisterUserUseCaseOutput> {
     if (await this.userRepository.exists(new Email(email))) {
       throw new UserAlreadyExistsException();
     }

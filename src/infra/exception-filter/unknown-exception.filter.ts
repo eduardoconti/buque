@@ -5,7 +5,7 @@ import { ExceptionFilter } from './exception-filter';
 
 @Catch(Error)
 export class UnknownExceptionFilter extends ExceptionFilter {
-  protected createAplicationProblem(exception: Error) {
+  protected createAplicationProblem(exception: Error): AplicationProblem {
     return AplicationProblem.createFromError(exception);
   }
 }

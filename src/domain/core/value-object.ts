@@ -13,14 +13,12 @@ export abstract class ValueObject<T> {
     this.props = props;
   }
 
-  protected abstract validate(props: ValueObjectProps<T>): void;
-
   static isValueObject(obj: unknown): obj is ValueObject<unknown> {
     return obj instanceof ValueObject;
   }
 
   public equals(vo?: ValueObject<T>): boolean {
-    if (vo === null || vo === undefined) {
+    if (vo === undefined) {
       return false;
     }
     return JSON.stringify(this) === JSON.stringify(vo);
@@ -28,12 +26,11 @@ export abstract class ValueObject<T> {
 
   private checkIfEmpty(props: ValueObjectProps<T>): void {
     if (
-      props === null ||
-      props === undefined ||
-      (typeof props === 'string' && props.trim().length === 0) ||
+      (typeof props === 'string' && !props.trim().length) ||
       (props instanceof Date && isNaN(props.getTime()))
     ) {
       throw new Error('Property cannot be empty');
     }
   }
+  protected abstract validate(props: ValueObjectProps<T>): void;
 }

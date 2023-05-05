@@ -16,7 +16,8 @@ import { AppModule } from '@app/app.module';
 
 import { BaseException } from '@domain/exceptions';
 
-import { configValidationSchema, EnvironmentVariables } from '@main/config';
+import type { EnvironmentVariables } from '@main/config';
+import { configValidationSchema } from '@main/config';
 
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
@@ -67,6 +68,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
           new Tracing.Integrations.Prisma({ client: new PrismaClient() }),
         ],
         logLevels: ['debug'],
+        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
         beforeSend(event, hint) {
           const exception = hint.originalException;
           if (exception instanceof BaseException) {
@@ -97,7 +99,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     SentryMonitorError,
     {
       provide: APP_INTERCEPTOR,
-      useFactory: () => new SentryInterceptor(),
+      useFactory: (): SentryInterceptor => new SentryInterceptor(),
     },
     LocalStrategy,
     JwtStrategy,

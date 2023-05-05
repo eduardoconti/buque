@@ -12,7 +12,7 @@ export class InvalidRequestBodyException extends BaseException {
     super('Some fields are in wrong format');
   }
 
-  get invalidFields() {
+  get invalidFields(): InvalidFields[] {
     return this._invalidFields;
   }
 }

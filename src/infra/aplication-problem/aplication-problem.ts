@@ -1,6 +1,8 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import type { HttpException } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common';
 
-import { BaseException, Status } from '@domain/exceptions';
+import type { BaseException } from '@domain/exceptions';
+import { Status } from '@domain/exceptions';
 
 import { InvalidRequestBodyException } from '@infra/exceptions';
 
@@ -61,7 +63,13 @@ export class AplicationProblem {
     return HttpStatus.INTERNAL_SERVER_ERROR;
   }
 
-  toJSON() {
+  toJSON(): {
+    status: number;
+    title: string;
+    type: string;
+    detail?: string;
+    invalid_fields?: InvalidFields[];
+  } {
     return {
       status: this.status,
       title: this.title,

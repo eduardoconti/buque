@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 
-import { IMonitorError } from '@app/contracts';
+import type { IMonitorError } from '@app/contracts';
 
 type Extra = unknown;
 type Extras = Record<string, Extra>;

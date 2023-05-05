@@ -1,4 +1,4 @@
-import { SentryService } from '@ntegral/nestjs-sentry';
+import type { SentryService } from '@ntegral/nestjs-sentry';
 
 import { SentryMonitorError } from './sentry-monitor-error';
 

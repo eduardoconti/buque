@@ -1,18 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
 import { mockRegisterUserUseCaseInput } from '@app/__mocks__';
 import { provideRegisterUserUseCase } from '@app/app.provider';
 import { UserAlreadyExistsException } from '@app/exceptions';
 
 import { mockUserEntity } from '@domain/__mocks__';
-import { IUserRepository } from '@domain/core';
+import type { IUserRepository } from '@domain/core';
 
 import { UserRepository } from '@infra/database/prisma';
 
-import {
-  IRegisterUserUseCase,
-  RegisterUserUseCase,
-} from './register-user.use-case';
+import type { IRegisterUserUseCase } from './register-user.use-case';
+import { RegisterUserUseCase } from './register-user.use-case';
 
 describe('RegisterUserUseCase', () => {
   let registerUserUseCase: IRegisterUserUseCase;

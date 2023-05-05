@@ -1,4 +1,5 @@
-import { DomainPrimitive, ValueObject } from '@domain/core';
+import type { DomainPrimitive } from '@domain/core';
+import { ValueObject } from '@domain/core';
 import { ArgumentInvalidException } from '@domain/exceptions';
 
 export class Email extends ValueObject<string> {

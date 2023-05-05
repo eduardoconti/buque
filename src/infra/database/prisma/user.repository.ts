@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { IUserRepository, QueryParams } from '@domain/core/repository';
-import { UserEntity, UserProps } from '@domain/entities';
-import { DateVO, Email } from '@domain/value-objects';
+import type { IUserRepository, QueryParams } from '@domain/core/repository';
+import type { UserEntity, UserProps } from '@domain/entities';
+import type { Email } from '@domain/value-objects';
+import { DateVO } from '@domain/value-objects';
 
 import {
   UserNotFoundException,
@@ -29,7 +30,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  async findOne(params: QueryParams<UserProps>) {
+  async findOne(params: QueryParams<UserProps>): Promise<UserEntity> {
     const model = await this.prismaService.user
       .findFirst({
         where: {

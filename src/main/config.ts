@@ -1,5 +1,7 @@
 import * as Joi from 'joi';
 
+export const DEFAULT_PORT = 3000;
+const DEFAULT_DB_PORT = 5432;
 export interface EnvironmentVariables {
   NODE_ENV: string;
   PORT: number;
@@ -14,11 +16,11 @@ export interface EnvironmentVariables {
 
 export const configValidationSchema = Joi.object({
   // APP
-  PORT: Joi.number().required().default(3000),
+  PORT: Joi.number().required().default(DEFAULT_PORT),
   NODE_ENV: Joi.string().required(),
   // DB
   DB_HOST: Joi.string().required(),
-  DB_PORT: Joi.number().required().default(5432),
+  DB_PORT: Joi.number().required().default(DEFAULT_DB_PORT),
   DB_USER: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_NAME: Joi.string().required(),

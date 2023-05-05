@@ -14,13 +14,15 @@ interface PostProps {
 export interface IHttpService {
   post<Response>(props: PostProps): Promise<Response>;
 }
+
+const DEFAULT_TIMEOUT = 5000;
 @Injectable()
 export class HttpService implements IHttpService {
   constructor(
     private readonly httpService: Axios,
     private readonly nestLogger: Logger,
   ) {}
-  async post<Response>(props: PostProps) {
+  async post<Response>(props: PostProps): Promise<Response> {
     this.nestLogger.log(JSON.stringify(props), 'EXTERNAL API REQUEST');
     const startedAt = DateVO.now().value.getTime();
     try {
@@ -29,7 +31,7 @@ export class HttpService implements IHttpService {
         props.body,
         {
           headers: props.headers,
-          timeout: props.timeOut ?? 5000,
+          timeout: props.timeOut ?? DEFAULT_TIMEOUT,
         },
       );
 

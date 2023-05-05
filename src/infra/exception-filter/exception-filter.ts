@@ -1,16 +1,17 @@
-import {
+import type {
   ArgumentsHost,
   ExceptionFilter as NestExceptionFilter,
   Logger,
 } from '@nestjs/common';
-import { Response } from 'express';
+import type { Response } from 'express';
 
-import { AplicationProblem, HttpErrorResponse } from '../aplication-problem';
+import type { AplicationProblem } from '../aplication-problem';
+import { send } from '../aplication-problem';
 
 export abstract class ExceptionFilter implements NestExceptionFilter {
   constructor(private readonly logger: Logger) {}
 
-  catch(exception: Error, host: ArgumentsHost) {
+  catch(exception: Error, host: ArgumentsHost): void {
     if (host.getType() === 'http') {
       const ctx = host.switchToHttp();
       const response = ctx.getResponse<Response>();
@@ -24,7 +25,7 @@ export abstract class ExceptionFilter implements NestExceptionFilter {
         'CONTROLLER',
       );
 
-      return HttpErrorResponse.send(response, aplicationProblem);
+      return send(response, aplicationProblem);
     }
   }
   protected abstract createAplicationProblem(

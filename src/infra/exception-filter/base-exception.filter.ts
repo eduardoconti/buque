@@ -7,7 +7,9 @@ import { ExceptionFilter } from './exception-filter';
 
 @Catch(BaseException)
 export class BaseExceptionFilter extends ExceptionFilter {
-  protected createAplicationProblem(exception: BaseException) {
+  protected createAplicationProblem(
+    exception: BaseException,
+  ): AplicationProblem {
     return AplicationProblem.createFromBaseException(exception);
   }
 }

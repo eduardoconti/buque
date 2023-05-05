@@ -1,4 +1,5 @@
-import { DateVO, ID } from '../value-objects';
+import type { ID } from '../value-objects';
+import { DateVO } from '../value-objects';
 
 export type UniqueEntityID = string;
 
@@ -15,10 +16,10 @@ export interface CreateEntityProps<EntityProps> {
 }
 
 export abstract class Entity<EntityProps> {
-  protected abstract _id: ID;
+  public readonly props: EntityProps;
   protected readonly _dataInclusao: DateVO;
   protected readonly _updatedAt: DateVO;
-  public readonly props: EntityProps;
+  protected abstract _id: ID;
 
   constructor({
     id,
@@ -32,10 +33,6 @@ export abstract class Entity<EntityProps> {
     this._updatedAt = dataAlteracao ?? DateVO.now();
   }
 
-  private setId(id: ID): void {
-    this._id = id;
-  }
-
   get dataInclusao(): DateVO {
     return this._dataInclusao;
   }
@@ -46,5 +43,9 @@ export abstract class Entity<EntityProps> {
 
   get id(): ID {
     return this._id;
+  }
+
+  private setId(id: ID): void {
+    this._id = id;
   }
 }

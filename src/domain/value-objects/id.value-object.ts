@@ -1,4 +1,5 @@
-import { DomainPrimitive, ValueObject } from '../core';
+import type { DomainPrimitive } from '../core';
+import { ValueObject } from '../core';
 
 export abstract class ID extends ValueObject<string> {
   constructor(value: string) {

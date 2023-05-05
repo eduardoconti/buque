@@ -1,6 +1,6 @@
-import { TokenPayload } from '@app/contracts';
+import type { TokenPayload } from '@app/contracts';
 
-import { RegisterUserInput } from '@presentation/dto';
+import type { RegisterUserInput } from '@presentation/dto';
 
 export const mockRegisterUserInput: RegisterUserInput = {
   nome: 'Eduardo Ferreira Conti',

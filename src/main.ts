@@ -12,9 +12,10 @@ import {
 import { LoggingInterceptor } from '@infra/interceptors';
 import { ValidationPipe } from '@infra/pipes';
 
-import { EnvironmentVariables } from './main/config';
+import type { EnvironmentVariables } from './main/config';
+import { DEFAULT_PORT } from './main/config';
 import { MainModule } from './main/main.module';
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(MainModule);
   const logger = app.get(Logger);
   app.useGlobalInterceptors(new LoggingInterceptor(logger));
@@ -36,7 +37,7 @@ async function bootstrap() {
     .setDescription('API para gerar QrCode e processar pagamentos com `PIX`')
     .setVersion('1.0')
     .addServer(
-      `http://localhost:${configService.get<number>('PORT') ?? 3000}`,
+      `http://localhost:${configService.get<number>('PORT') ?? DEFAULT_PORT}`,
       'Local',
     )
     .addServer(`https://buque-api-qx46.onrender.com`, 'Production')
@@ -51,6 +52,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(configService.get('PORT') | 3000);
+  await app.listen(configService.get('PORT') | DEFAULT_PORT);
 }
 bootstrap();

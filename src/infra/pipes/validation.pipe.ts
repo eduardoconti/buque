@@ -1,23 +1,21 @@
-import {
-  PipeTransform,
-  Injectable,
-  ArgumentMetadata,
-  Type,
-} from '@nestjs/common';
+import type { PipeTransform, ArgumentMetadata, Type } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { validate, ValidationError } from 'class-validator';
+import type { ValidationError } from 'class-validator';
+import { validate } from 'class-validator';
 
-import { InvalidFields, InvalidRequestBodyException } from '../exceptions';
+import type { InvalidFields } from '../exceptions';
+import { InvalidRequestBodyException } from '../exceptions';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform {
-  async transform(value: any, { metatype }: ArgumentMetadata) {
+  async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
     const object = plainToInstance(metatype, value);
     const errors = await validate(object);
-    if (errors.length > 0) {
+    if (errors.length) {
       throw new InvalidRequestBodyException(this.buildInvalidFields(errors));
     }
     return value;

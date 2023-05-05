@@ -1,7 +1,10 @@
 import { ArgumentInvalidException } from '@domain/exceptions';
 
-import { DomainPrimitive, ValueObject } from '../core';
+import type { DomainPrimitive } from '../core';
+import { ValueObject } from '../core';
 
+const BASE = 100;
+const DECIMALS = 2;
 export class Amount extends ValueObject<number> {
   public constructor(value: number) {
     super({ value });
@@ -11,15 +14,15 @@ export class Amount extends ValueObject<number> {
     return this.props.value;
   }
 
-  toBrlString(): string {
-    return (this.props.value / 100).toFixed(2);
-  }
-
   static fromBrlString(value: string): number {
-    const newValue = parseFloat(value) * 100;
+    const newValue = parseFloat(value) * BASE;
     return new Amount(
       Number.isInteger(newValue) ? newValue : Math.round(newValue),
     ).value;
+  }
+
+  public toBrlString(): string {
+    return (this.props.value / BASE).toFixed(DECIMALS);
   }
 
   protected validate({ value }: DomainPrimitive<number>): void {

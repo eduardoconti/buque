@@ -1,15 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
 import { mockUserAuthUseCaseInput } from '@app/__mocks__';
 import { provideUserAuthUseCase } from '@app/app.provider';
 
 import { mockUserEntity } from '@domain/__mocks__';
-import { IUserRepository } from '@domain/core';
+import type { IUserRepository } from '@domain/core';
 
 import { UserRepository } from '@infra/database/prisma';
 import { UnauthorizedException } from '@infra/exceptions';
 
-import { UserAuthUseCase, IUserAuthUseCase } from './user-auth.use-case';
+import type { IUserAuthUseCase } from './user-auth.use-case';
+import { UserAuthUseCase } from './user-auth.use-case';
 
 describe('userAuthUseCase', () => {
   let userAuthUseCase: IUserAuthUseCase;

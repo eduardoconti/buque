@@ -31,7 +31,7 @@ export abstract class DomainEvent {
   constructor(props: DomainEventProps<unknown>) {
     this.id = UUID.generate().value;
     this.aggregateId = props.aggregateId;
-    this.dateOccurred = props.dateOccurred || Date.now();
+    this.dateOccurred = props.dateOccurred ?? Date.now();
     if (props.correlationId) this.correlationId = props.correlationId;
   }
 }

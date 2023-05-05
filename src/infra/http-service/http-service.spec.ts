@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { HttpService as Axios } from '@nestjs/axios';
-import { Logger, LoggerService } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import type { LoggerService } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
-import { HttpService, IHttpService } from './http-service';
+import type { IHttpService } from './http-service';
+import { HttpService } from './http-service';
 
 class MockHttpService {
-  post() {
-    // Implement your mock post method here
-  }
   axiosRef = {
     post: jest.fn(),
   };
+  post(): void {
+    // Implement your mock post method here
+  }
 }
 
 const props = {
