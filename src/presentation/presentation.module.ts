@@ -6,7 +6,8 @@ import { InfraModule } from '@infra/infra.module';
 
 import { AuthController } from './controllers/auth/auth.controller';
 import { HealthCheckController } from './controllers/health-check';
-import { RegistrarProdutoController } from './controllers/produto/registrar-produto.controller';
+import { RegistrarMateriaPrimaController } from './controllers/materia-prima';
+import { RegistrarProdutoController } from './controllers/produto';
 import { RegisterUserController } from './controllers/user';
 
 @Module({
@@ -16,6 +17,7 @@ import { RegisterUserController } from './controllers/user';
     RegisterUserController,
     AuthController,
     RegistrarProdutoController,
+    RegistrarMateriaPrimaController,
   ],
 })
 export class PresentationModule {}

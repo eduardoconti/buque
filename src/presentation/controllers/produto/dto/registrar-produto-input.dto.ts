@@ -1,9 +1,19 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { ValidateNested } from 'class-validator';
+
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
+import { ItemMateriaPrima } from './item-materia-prima.input.dto';
+
 export class RegistrarProdutoInput {
+  @ApiProperty()
   nome!: string;
+  @ApiProperty()
   descricao!: string;
-  materia_prima!: { id: string; quantidade: number }[];
+  @ValidateNested()
+  @ApiProperty({ type: ItemMateriaPrima })
+  materia_prima!: ItemMateriaPrima[];
+  @ApiProperty()
   codigo!: number;
 
   static mapToUseCaseInput({

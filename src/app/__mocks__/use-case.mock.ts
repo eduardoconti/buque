@@ -3,6 +3,7 @@ import type {
   RegisterUserUseCaseOutput,
   UserAuthUseCaseInput,
 } from '@app/use-cases';
+import type { RegistrarMateriaPrimaUseCaseInput } from '@app/use-cases/materia-prima';
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
 export const mockRegisterUserUseCaseInput: RegisterUserUseCaseInput = {
@@ -33,3 +34,9 @@ export const mockRegistraProdutoUseCaseInput: RegistraProdutoUseCaseInput = {
     },
   ],
 };
+
+export const mockRegistrarMateriaPrimaUseCase: RegistrarMateriaPrimaUseCaseInput =
+  {
+    nome: 'fake nome',
+    descricao: 'fake descricao',
+  };

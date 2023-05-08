@@ -13,6 +13,7 @@ import {
 import { UserRepository } from '@infra/database/prisma';
 
 import { RegisterUserUseCase, UserAuthUseCase } from './use-cases';
+import { RegistrarMateriaPrimaUseCase } from './use-cases/materia-prima';
 import { RegistraProdutoUseCase } from './use-cases/produto';
 
 export const provideUserAuthUseCase: Provider<UserAuthUseCase> = {
@@ -44,4 +45,13 @@ export const provideRegistrarProdutoUseCase: Provider<RegistraProdutoUseCase> =
       );
     },
     inject: [ProdutoMemoryRepository, MateriaPrimaMemoryRepository],
+  };
+
+export const provideRegistrarMateriaPrimaUseCase: Provider<RegistrarMateriaPrimaUseCase> =
+  {
+    provide: RegistrarMateriaPrimaUseCase,
+    useFactory: (materiaPrimaRepository: IMateriaPrimaRepository) => {
+      return new RegistrarMateriaPrimaUseCase(materiaPrimaRepository);
+    },
+    inject: [MateriaPrimaMemoryRepository],
   };

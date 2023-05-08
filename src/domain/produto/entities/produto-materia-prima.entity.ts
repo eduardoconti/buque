@@ -36,7 +36,7 @@ export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima>
     });
   }
 
-  adicionaQuantidade(quantidade: number) {
+  adicionaQuantidade(quantidade: number): void {
     this.props.quantidade += quantidade;
   }
 }

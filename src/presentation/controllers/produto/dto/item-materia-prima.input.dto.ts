@@ -1,10 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RegistrarProdutoOutput {
+export class ItemMateriaPrima {
   @ApiProperty()
   id!: string;
   @ApiProperty()
-  nome!: string;
-  @ApiProperty()
-  codigo!: number;
+  quantidade!: number;
 }

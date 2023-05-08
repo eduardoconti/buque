@@ -1,13 +1,17 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import {
   IRegistraProdutoUseCase,
   RegistraProdutoUseCase,
 } from '@app/use-cases/produto';
 
-import type { RegistrarProdutoOutput } from './dto';
+import { ApiSuccessResponse } from '@presentation/__docs__';
+
+import { RegistrarProdutoOutput } from './dto';
 import { RegistrarProdutoInput } from './dto';
 
+@ApiTags('produto')
 @Controller('produto')
 export class RegistrarProdutoController {
   constructor(
@@ -16,6 +20,10 @@ export class RegistrarProdutoController {
   ) {}
 
   @Post()
+  @ApiSuccessResponse({
+    model: RegistrarProdutoOutput,
+    statusCode: HttpStatus.CREATED,
+  })
   async handle(
     @Body() { materia_prima, codigo, nome, descricao }: RegistrarProdutoInput,
   ): Promise<RegistrarProdutoOutput> {
