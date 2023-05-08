@@ -4,3 +4,7 @@ export * from './user-repository.exception';
 export * from './unauthorized.exception';
 export * from './token-expired.exception';
 export * from './invalid-token.exception';
+export * from './produto-not-found.exception';
+export * from './produto-repository.exception';
+export * from './materia-prima-not-found.exception';
+export * from './materia-prima-repository.exception';

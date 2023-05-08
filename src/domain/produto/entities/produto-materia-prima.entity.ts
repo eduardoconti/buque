@@ -18,6 +18,17 @@ export interface PropriedadesPrimitivasProdutoMateriaPrima {
 export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima> {
   protected readonly _id!: UUID;
 
+  get idProduto(): UUID {
+    return this.props.idProduto;
+  }
+
+  get idMateriaPrima(): UUID {
+    return this.props.idMateriaPrima;
+  }
+
+  get quantidade(): number {
+    return this.props.quantidade;
+  }
   static create({
     idMateriaPrima,
     idProduto,

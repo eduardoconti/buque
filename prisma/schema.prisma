@@ -59,6 +59,7 @@ model materia_prima {
   data_inclusao            DateTime                   @default(now())
   data_alteracao           DateTime                   @updatedAt
   itens_compra             itens_compra[]
+  valor_unitario           Int
 }
 
 model fornecedor {

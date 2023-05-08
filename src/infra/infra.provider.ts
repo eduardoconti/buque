@@ -5,6 +5,8 @@ import {
   ProdutoMemoryRepository,
 } from './database/memory';
 import { PrismaService, UserRepository } from './database/prisma';
+import { MateriaPrimaRepository } from './database/prisma/materia-prima.repository';
+import { ProdutoRepository } from './database/prisma/produto.repository';
 
 export const provideUserRepository: Provider<UserRepository> = {
   provide: UserRepository,
@@ -29,3 +31,19 @@ export const provideMateriaPrimaMemoryRepository: Provider<MateriaPrimaMemoryRep
       return new MateriaPrimaMemoryRepository();
     },
   };
+
+export const provideProdutoRepository: Provider<ProdutoRepository> = {
+  provide: ProdutoRepository,
+  useFactory: (prisma: PrismaService) => {
+    return new ProdutoRepository(prisma);
+  },
+  inject: [PrismaService],
+};
+
+export const provideMateriaPrimaRepository: Provider<MateriaPrimaRepository> = {
+  provide: MateriaPrimaRepository,
+  useFactory: (prisma: PrismaService) => {
+    return new MateriaPrimaRepository(prisma);
+  },
+  inject: [PrismaService],
+};

@@ -8,7 +8,7 @@ import { provideRegistrarMateriaPrimaUseCase } from '@app/app.provider';
 import { mockMateriaPrimaEntity } from '@domain/__mocks__';
 import type { IMateriaPrimaRepository } from '@domain/core';
 
-import { MateriaPrimaMemoryRepository } from '@infra/database/memory';
+import { MateriaPrimaRepository } from '@infra/database/prisma';
 
 import type { IRegistrarMateriaPrimaUseCase } from './registrar-materia-prima.use-case';
 import { RegistrarMateriaPrimaUseCase } from './registrar-materia-prima.use-case';
@@ -21,7 +21,7 @@ describe('RegistrarMateriaPrimauseCase', () => {
       providers: [
         provideRegistrarMateriaPrimaUseCase,
         {
-          provide: MateriaPrimaMemoryRepository,
+          provide: MateriaPrimaRepository,
           useValue: {
             save: jest.fn(),
           },
@@ -33,7 +33,7 @@ describe('RegistrarMateriaPrimauseCase', () => {
       RegistrarMateriaPrimaUseCase,
     );
     materiaPrimaRepository = app.get<IMateriaPrimaRepository>(
-      MateriaPrimaMemoryRepository,
+      MateriaPrimaRepository,
     );
   });
 
@@ -50,13 +50,12 @@ describe('RegistrarMateriaPrimauseCase', () => {
       mockRegistrarMateriaPrimaUseCase,
     );
 
-    expect(result).toStrictEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        descricao: mockMateriaPrimaEntity.props.descricao,
-        nome: mockMateriaPrimaEntity.nome.value,
-      }),
-    );
+    expect(result).toStrictEqual({
+      id: expect.any(String),
+      descricao: mockMateriaPrimaEntity.props.descricao,
+      nome: mockMateriaPrimaEntity.nome.value,
+      valorUnitario: 1000,
+    });
 
     expect(materiaPrimaRepository.save).toBeCalledTimes(1);
   });

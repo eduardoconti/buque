@@ -7,9 +7,9 @@ import type {
 } from '@domain/core';
 
 import {
-  MateriaPrimaMemoryRepository,
-  ProdutoMemoryRepository,
-} from '@infra/database/memory';
+  MateriaPrimaRepository,
+  ProdutoRepository,
+} from '@infra/database/prisma';
 import { UserRepository } from '@infra/database/prisma';
 
 import { RegisterUserUseCase, UserAuthUseCase } from './use-cases';
@@ -44,7 +44,7 @@ export const provideRegistrarProdutoUseCase: Provider<RegistraProdutoUseCase> =
         materiaPrimaRepository,
       );
     },
-    inject: [ProdutoMemoryRepository, MateriaPrimaMemoryRepository],
+    inject: [ProdutoRepository, MateriaPrimaRepository],
   };
 
 export const provideRegistrarMateriaPrimaUseCase: Provider<RegistrarMateriaPrimaUseCase> =
@@ -53,5 +53,5 @@ export const provideRegistrarMateriaPrimaUseCase: Provider<RegistrarMateriaPrima
     useFactory: (materiaPrimaRepository: IMateriaPrimaRepository) => {
       return new RegistrarMateriaPrimaUseCase(materiaPrimaRepository);
     },
-    inject: [MateriaPrimaMemoryRepository],
+    inject: [MateriaPrimaRepository],
   };

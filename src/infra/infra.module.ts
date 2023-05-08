@@ -23,7 +23,9 @@ import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import {
   provideMateriaPrimaMemoryRepository,
+  provideMateriaPrimaRepository,
   provideProdutoMemoryRepository,
+  provideProdutoRepository,
   provideUserRepository,
 } from './infra.provider';
 import { SentryMonitorError } from './sentry';
@@ -109,6 +111,8 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     JwtStrategy,
     provideProdutoMemoryRepository,
     provideMateriaPrimaMemoryRepository,
+    provideProdutoRepository,
+    provideMateriaPrimaRepository,
   ],
   exports: [
     HttpService,
@@ -119,6 +123,8 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     JwtModule,
     provideProdutoMemoryRepository,
     provideMateriaPrimaMemoryRepository,
+    provideProdutoRepository,
+    provideMateriaPrimaRepository,
   ],
 })
 export class InfraModule {}

@@ -39,4 +39,5 @@ export const mockRegistrarMateriaPrimaUseCase: RegistrarMateriaPrimaUseCaseInput
   {
     nome: 'fake nome',
     descricao: 'fake descricao',
+    valorUnitario: 1000,
   };

@@ -9,9 +9,9 @@ import { mockMateriaPrimaEntity, mockProdutoEntity } from '@domain/__mocks__';
 import type { IMateriaPrimaRepository, IProdutoRepository } from '@domain/core';
 
 import {
-  MateriaPrimaMemoryRepository,
-  ProdutoMemoryRepository,
-} from '@infra/database/memory';
+  MateriaPrimaRepository,
+  ProdutoRepository,
+} from '@infra/database/prisma';
 
 import type { IRegistraProdutoUseCase } from './registrar-produto.use-case';
 import { RegistraProdutoUseCase } from './registrar-produto.use-case';
@@ -25,14 +25,14 @@ describe('RegistrarProdutouseCase', () => {
       providers: [
         provideRegistrarProdutoUseCase,
         {
-          provide: ProdutoMemoryRepository,
+          provide: ProdutoRepository,
           useValue: {
             findOneById: jest.fn(),
             save: jest.fn(),
           },
         },
         {
-          provide: MateriaPrimaMemoryRepository,
+          provide: MateriaPrimaRepository,
           useValue: {
             findOneById: jest.fn(),
             save: jest.fn(),
@@ -44,9 +44,9 @@ describe('RegistrarProdutouseCase', () => {
     registrarProdutouseCase = app.get<IRegistraProdutoUseCase>(
       RegistraProdutoUseCase,
     );
-    produtoRepository = app.get<IProdutoRepository>(ProdutoMemoryRepository);
+    produtoRepository = app.get<IProdutoRepository>(ProdutoRepository);
     materiaPrimaRepository = app.get<IMateriaPrimaRepository>(
-      MateriaPrimaMemoryRepository,
+      MateriaPrimaRepository,
     );
   });
 

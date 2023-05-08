@@ -24,14 +24,16 @@ export class RegistrarMateriaPrimaController {
     statusCode: HttpStatus.CREATED,
   })
   async handle(
-    @Body() { nome, descricao }: RegistrarMateriaPrimaInput,
+    @Body() { nome, descricao, valor_unitario }: RegistrarMateriaPrimaInput,
   ): Promise<RegistrarMateriaPrimaOutput> {
-    const result = await this.registrarMateriaPrimauseCase.execute(
-      RegistrarMateriaPrimaInput.mapToUseCaseInput({
-        nome,
-        descricao,
-      }),
-    );
-    return result;
+    const { id, valorUnitario } =
+      await this.registrarMateriaPrimauseCase.execute(
+        RegistrarMateriaPrimaInput.mapToUseCaseInput({
+          nome,
+          descricao,
+          valor_unitario,
+        }),
+      );
+    return { id, nome, descricao, valor_unitario: valorUnitario };
   }
 }

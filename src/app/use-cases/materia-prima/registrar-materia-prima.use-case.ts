@@ -4,12 +4,14 @@ import { MateriaPrima } from '@domain/materia-prima/entities';
 export interface RegistrarMateriaPrimaUseCaseInput {
   nome: string;
   descricao: string;
+  valorUnitario: number;
 }
 
 export interface RegistrarMateriaPrimaUseCaseOutput {
   id: string;
   nome: string;
   descricao: string;
+  valorUnitario: number;
 }
 
 export type IRegistrarMateriaPrimaUseCase = IUseCase<
@@ -27,11 +29,12 @@ export class RegistrarMateriaPrimaUseCase
   async execute({
     nome,
     descricao,
+    valorUnitario,
   }: RegistrarMateriaPrimaUseCaseInput): Promise<RegistrarMateriaPrimaUseCaseOutput> {
     const materiaPrima = MateriaPrima.create({
       nome,
       descricao,
-      valorUnitario: 10,
+      valorUnitario: valorUnitario,
     });
 
     await this.materiaPrimaRepository.save(materiaPrima);
@@ -39,6 +42,7 @@ export class RegistrarMateriaPrimaUseCase
       id: materiaPrima.id.value,
       nome,
       descricao,
+      valorUnitario,
     };
   }
 }
