@@ -1,18 +1,12 @@
 import { UserEntity } from '@domain/entities';
 import { DateVO, Email, Nome, Senha, UUID } from '@domain/value-objects';
 
-export class UserModel {
-  id!: string;
+import { Model } from './model';
 
+export class UserModel extends Model {
   nome!: string;
-
   email!: string;
-
   senha!: string;
-
-  data_inclusao!: Date;
-
-  data_alteracao!: Date;
 
   static fromEntity(userEntity: UserEntity): UserModel {
     const { id, nome, email, senha, dataInclusao, dataAlteracao } =

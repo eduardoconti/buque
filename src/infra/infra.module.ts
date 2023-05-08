@@ -21,7 +21,11 @@ import { configValidationSchema } from '@main/config';
 
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
-import { provideUserRepository } from './infra.provider';
+import {
+  provideMateriaPrimaMemoryRepository,
+  provideProdutoMemoryRepository,
+  provideUserRepository,
+} from './infra.provider';
 import { SentryMonitorError } from './sentry';
 import { JwtStrategy } from './strategy/auth';
 import { LocalStrategy } from './strategy/auth/local.strategy';
@@ -103,6 +107,8 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     },
     LocalStrategy,
     JwtStrategy,
+    provideProdutoMemoryRepository,
+    provideMateriaPrimaMemoryRepository,
   ],
   exports: [
     HttpService,
@@ -111,6 +117,8 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideUserRepository,
     SentryMonitorError,
     JwtModule,
+    provideProdutoMemoryRepository,
+    provideMateriaPrimaMemoryRepository,
   ],
 })
 export class InfraModule {}

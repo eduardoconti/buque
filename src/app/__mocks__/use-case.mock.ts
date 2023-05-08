@@ -3,6 +3,7 @@ import type {
   RegisterUserUseCaseOutput,
   UserAuthUseCaseInput,
 } from '@app/use-cases';
+import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
 export const mockRegisterUserUseCaseInput: RegisterUserUseCaseInput = {
   nome: 'Eduardo Conti',
@@ -19,4 +20,16 @@ export const mockRegisterUserUseCaseOutput: RegisterUserUseCaseOutput = {
 export const mockUserAuthUseCaseInput: UserAuthUseCaseInput = {
   userName: 'eduardo.conti@gmail.com',
   senha: 'teste@123',
+};
+
+export const mockRegistraProdutoUseCaseInput: RegistraProdutoUseCaseInput = {
+  codigo: 999,
+  descricao: 'fake descricao',
+  nome: 'fake nome',
+  itenMateriaPrima: [
+    {
+      idMateriaPrima: '29badd61-6990-45e3-acf3-faee6eb4e6ab',
+      quantidade: 1,
+    },
+  ],
 };

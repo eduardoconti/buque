@@ -17,3 +17,120 @@ model user {
   data_inclusao  DateTime @default(now())
   data_alteracao DateTime @updatedAt
 }
+
+model cliente {
+  id             String   @id
+  nome           String
+  email          String   @unique
+  telefone       String
+  data_inclusao  DateTime @default(now())
+  data_alteracao DateTime @updatedAt
+  pedidos        pedido[]
+}
+
+model produto {
+  id                    String                  @id
+  nome                  String
+  descricao             String
+  codigo                Int                     @unique
+  produto_materia_prima produto_materia_prima[]
+  data_inclusao         DateTime                @default(now())
+  data_alteracao        DateTime                @updatedAt
+  itens_pedido          itens_pedido[]
+}
+
+model produto_materia_prima {
+  id              String        @id
+  id_produto      String
+  id_materiaPrima String
+  produto         produto       @relation(fields: [id_produto], references: [id])
+  materia_prima   materia_prima @relation(fields: [id_materiaPrima], references: [id])
+  quantidade      Int
+  data_inclusao   DateTime      @default(now())
+  data_alteracao  DateTime      @updatedAt
+}
+
+model materia_prima {
+  id                       String                     @id
+  nome                     String
+  descricao                String
+  produto_materia_prima    produto_materia_prima[]
+  fornecedor_materia_prima fornecedor_materia_prima[]
+  data_inclusao            DateTime                   @default(now())
+  data_alteracao           DateTime                   @updatedAt
+  itens_compra             itens_compra[]
+}
+
+model fornecedor {
+  id                       String                     @id
+  nome                     String
+  telefone                 String
+  site                     String?
+  data_inclusao            DateTime                   @default(now())
+  data_alteracao           DateTime                   @updatedAt
+  fornecedor_materia_prima fornecedor_materia_prima[]
+  compra                   compra[]
+}
+
+model fornecedor_materia_prima {
+  id               String        @id
+  id_fornecedor    String
+  id_materia_prima String
+  data_inclusao    DateTime      @default(now())
+  data_alteracao   DateTime      @updatedAt
+  materia_prima    materia_prima @relation(fields: [id_materia_prima], references: [id])
+  fornecedor       fornecedor    @relation(fields: [id_fornecedor], references: [id])
+}
+
+model pedido {
+  id             String         @id
+  id_cliente     String
+  valor          Int
+  data_entrega   String?
+  status         status_pedido
+  data_inclusao  DateTime       @default(now())
+  data_alteracao DateTime       @updatedAt
+  cliente        cliente        @relation(fields: [id_cliente], references: [id])
+  itens          itens_pedido[]
+}
+
+enum status_pedido {
+  AGUARDANDO_PRODUCAO
+  PRODUZINDO
+  CONCLUIDO
+  ENTREGUE
+  CANCELADO
+}
+
+model itens_pedido {
+  id             String   @id
+  id_pedido      String
+  id_produto     String
+  quantidade     Int
+  data_inclusao  DateTime @default(now())
+  data_alteracao DateTime @updatedAt
+  pedido         pedido   @relation(fields: [id_pedido], references: [id])
+  produto        produto  @relation(fields: [id_produto], references: [id])
+}
+
+model compra {
+  id             String         @id
+  id_fornecedor  String
+  data_inclusao  DateTime       @default(now())
+  data_alteracao DateTime       @updatedAt
+  fornecedor     fornecedor     @relation(fields: [id_fornecedor], references: [id])
+  valor          Int
+  itens_compra   itens_compra[]
+}
+
+model itens_compra {
+  id               String        @id
+  id_compra        String
+  quantidade       Int
+  id_materia_prima String
+  valor_unitario   Int
+  data_inclusao    DateTime      @default(now())
+  data_alteracao   DateTime      @updatedAt
+  materia_prima    materia_prima @relation(fields: [id_materia_prima], references: [id])
+  compra           compra        @relation(fields: [id_compra], references: [id])
+}
