@@ -4,7 +4,7 @@ import { IsNumber, IsString, Min, ValidateNested } from 'class-validator';
 
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
-import { ItemMateriaPrima } from './item-materia-prima.input.dto';
+import { ItemMateriaPrimaInput } from './item-materia-prima.input.dto';
 
 export class RegistrarProdutoInput {
   @IsString()
@@ -16,9 +16,9 @@ export class RegistrarProdutoInput {
   descricao!: string;
 
   @ValidateNested()
-  @Type(() => ItemMateriaPrima)
-  @ApiProperty({ type: ItemMateriaPrima })
-  materia_prima!: ItemMateriaPrima[];
+  @Type(() => ItemMateriaPrimaInput)
+  @ApiProperty({ type: ItemMateriaPrimaInput })
+  materia_prima!: ItemMateriaPrimaInput[];
 
   @IsNumber()
   @ApiProperty()

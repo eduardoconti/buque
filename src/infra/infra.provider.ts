@@ -11,6 +11,7 @@ import {
   MateriaPrimaRepository,
   ProdutoRepository,
 } from './database/prisma';
+import { SqlManager } from './database/query';
 
 export const provideUserRepository: Provider<UserRepository> = {
   provide: UserRepository,
@@ -56,6 +57,14 @@ export const provideClienteRepository: Provider<ClienteRepository> = {
   provide: ClienteRepository,
   useFactory: (prisma: PrismaService) => {
     return new ClienteRepository(prisma);
+  },
+  inject: [PrismaService],
+};
+
+export const provideSqlManager: Provider<SqlManager> = {
+  provide: SqlManager,
+  useFactory: (prisma: PrismaService) => {
+    return new SqlManager(prisma);
   },
   inject: [PrismaService],
 };

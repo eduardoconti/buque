@@ -27,6 +27,7 @@ import {
   provideMateriaPrimaRepository,
   provideProdutoMemoryRepository,
   provideProdutoRepository,
+  provideSqlManager,
   provideUserRepository,
 } from './infra.provider';
 import { SentryMonitorError } from './sentry';
@@ -115,6 +116,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideProdutoRepository,
     provideMateriaPrimaRepository,
     provideClienteRepository,
+    provideSqlManager,
   ],
   exports: [
     HttpService,
@@ -128,6 +130,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideProdutoRepository,
     provideMateriaPrimaRepository,
     provideClienteRepository,
+    provideSqlManager,
   ],
 })
 export class InfraModule {}

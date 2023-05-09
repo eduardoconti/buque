@@ -10,3 +10,4 @@ export * from './queue';
 export * from './repository';
 export * from './use-case';
 export * from './logger';
+export * from './sql-manager';

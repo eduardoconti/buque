@@ -9,6 +9,7 @@ import { RegistrarClienteController } from './controllers/cliente';
 import { HealthCheckController } from './controllers/health-check';
 import { RegistrarMateriaPrimaController } from './controllers/materia-prima';
 import { RegistrarProdutoController } from './controllers/produto';
+import { ListarProdutosController } from './controllers/produto/listar-produtos';
 import { RegisterUserController } from './controllers/user';
 
 @Module({
@@ -20,6 +21,7 @@ import { RegisterUserController } from './controllers/user';
     RegistrarProdutoController,
     RegistrarMateriaPrimaController,
     RegistrarClienteController,
+    ListarProdutosController,
   ],
 })
 export class PresentationModule {}

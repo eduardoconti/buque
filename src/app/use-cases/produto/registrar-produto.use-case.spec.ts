@@ -69,7 +69,15 @@ describe('RegistrarProdutouseCase', () => {
     expect(result).toStrictEqual({
       id: expect.any(String),
       descricao: mockProdutoEntity.props.descricao,
-      itemMateriaPrima: mockRegistraProdutoUseCaseInput.itemMateriaPrima,
+      itemMateriaPrima: mockRegistraProdutoUseCaseInput.itemMateriaPrima.map(
+        (e) => {
+          return {
+            id: mockMateriaPrimaEntity.id.value,
+            nome: 'fake nome',
+            quantidade: e.quantidade,
+          };
+        },
+      ),
       nome: mockProdutoEntity.nome.value,
       valor: mockProdutoEntity.valor.value,
     });
