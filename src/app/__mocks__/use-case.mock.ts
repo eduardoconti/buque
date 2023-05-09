@@ -28,11 +28,10 @@ export const mockUserAuthUseCaseInput: UserAuthUseCaseInput = {
 };
 
 export const mockRegistraProdutoUseCaseInput: RegistraProdutoUseCaseInput = {
-  codigo: 999,
   descricao: 'fake descricao',
   valor: 1000,
   nome: 'fake nome',
-  itenMateriaPrima: [
+  itemMateriaPrima: [
     {
       idMateriaPrima: '29badd61-6990-45e3-acf3-faee6eb4e6ab',
       quantidade: 1,

@@ -7,7 +7,6 @@ import { ProdutoMateriaPrimaModel } from './produto-materia-prima.model';
 export class ProdutoModel extends Model {
   nome!: string;
   descricao!: string;
-  codigo!: number;
   produto_materia_prima!: ProdutoMateriaPrimaModel[];
   valor!: number;
 
@@ -16,7 +15,6 @@ export class ProdutoModel extends Model {
       id: entity.id.value,
       nome: entity.props.nome.value,
       descricao: entity.props.descricao,
-      codigo: entity.props.codigo,
       produto_materia_prima: entity.props.produtoMateriaPrima.map((e) =>
         ProdutoMateriaPrimaModel.fromEntity(e),
       ),
@@ -30,7 +28,6 @@ export class ProdutoModel extends Model {
     id,
     nome,
     descricao,
-    codigo,
     valor,
     produto_materia_prima,
     data_alteracao,
@@ -43,7 +40,6 @@ export class ProdutoModel extends Model {
       props: {
         nome: new Nome(nome),
         descricao,
-        codigo,
         valor: new Amount(valor),
         produtoMateriaPrima: produto_materia_prima.map((e) =>
           ProdutoMateriaPrimaModel.toEntity(e),

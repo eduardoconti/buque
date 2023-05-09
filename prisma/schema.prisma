@@ -32,7 +32,6 @@ model produto {
   id                    String                  @id
   nome                  String
   descricao             String
-  codigo                Int                     @unique
   produto_materia_prima produto_materia_prima[]
   data_inclusao         DateTime                @default(now())
   data_alteracao        DateTime                @updatedAt

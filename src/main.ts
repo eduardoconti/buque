@@ -33,14 +33,14 @@ async function bootstrap(): Promise<void> {
 
   const configService = app.get(ConfigService<EnvironmentVariables>);
   const config = new DocumentBuilder()
-    .setTitle('API Pix')
-    .setDescription('API para gerar QrCode e processar pagamentos com `PIX`')
+    .setTitle('API Buque')
+    .setDescription('API para genrenciamento da loja  `Buquê Encantado`')
     .setVersion('1.0')
     .addServer(
       `http://localhost:${configService.get<number>('PORT') ?? DEFAULT_PORT}`,
       'Local',
     )
-    .addServer(`https://buque-api-qx46.onrender.com`, 'Production')
+    //.addServer(`https://buque-api-qx46.onrender.com`, 'Production')
     .addTag('health-check', 'Endpoints para monitoramento da api')
     .addTag('auth', 'Endpoints para autenticação')
     .addTag('user', 'Endpoints para gerenciamento de usuário')

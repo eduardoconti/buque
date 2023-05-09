@@ -68,12 +68,13 @@ describe('RegistrarProdutouseCase', () => {
 
     expect(result).toStrictEqual({
       id: expect.any(String),
-      codigo: mockProdutoEntity.props.codigo,
+      descricao: mockProdutoEntity.props.descricao,
+      itemMateriaPrima: mockRegistraProdutoUseCaseInput.itemMateriaPrima,
       nome: mockProdutoEntity.nome.value,
       valor: mockProdutoEntity.valor.value,
     });
     expect(materiaPrimaRepository.findOneById).toBeCalledTimes(
-      mockRegistraProdutoUseCaseInput.itenMateriaPrima.length,
+      mockRegistraProdutoUseCaseInput.itemMateriaPrima.length,
     );
     expect(produtoRepository.save).toBeCalledTimes(1);
   });
@@ -102,8 +103,8 @@ describe('RegistrarProdutouseCase', () => {
     await expect(
       registrarProdutouseCase.execute({
         ...mockRegistraProdutoUseCaseInput,
-        itenMateriaPrima: [
-          ...mockRegistraProdutoUseCaseInput.itenMateriaPrima,
+        itemMateriaPrima: [
+          ...mockRegistraProdutoUseCaseInput.itemMateriaPrima,
           {
             idMateriaPrima: '29badd61-6990-45e3-acf3-faee6eb4e6ab',
             quantidade: 1,

@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class RegistrarClienteOutput {
   @ApiProperty({
@@ -11,10 +11,10 @@ export class RegistrarClienteOutput {
   })
   nome!: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'es.eduardoconti@gmail.com',
   })
-  email!: string;
+  email?: string;
 
   @ApiProperty({
     example: '(44)984089729',

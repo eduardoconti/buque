@@ -4,7 +4,7 @@ import { DateVO, Email, Nome, UUID } from '@domain/value-objects';
 export class ClienteModel {
   id!: string;
   nome!: string;
-  email!: string;
+  email?: string | null;
   telefone!: string;
   data_inclusao!: Date;
   data_alteracao!: Date;
@@ -23,7 +23,7 @@ export class ClienteModel {
       dataInclusao: new DateVO(data_inclusao),
       props: {
         nome: new Nome(nome),
-        email: new Email(email),
+        email: email ? new Email(email) : undefined,
         telefone,
       },
     });
@@ -35,7 +35,7 @@ export class ClienteModel {
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
       nome: entity.nome.value,
-      email: entity.email.value,
+      email: entity.email?.value,
       telefone: entity.telefone,
     };
   }

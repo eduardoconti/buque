@@ -9,7 +9,7 @@ export type RegistrarClienteUseCaseOutput = RegistrarClienteUseCaseInput & {
 };
 export interface RegistrarClienteUseCaseInput {
   nome: string;
-  email: string;
+  email?: string;
   telefone: string;
 }
 
@@ -19,12 +19,13 @@ export type IRegistrarClienteUseCase = IUseCase<
 >;
 export class RegistrarClienteUseCase implements IRegistrarClienteUseCase {
   constructor(private readonly clienteRepository: IClienteRepository) {}
+
   async execute({
     nome,
     email,
     telefone,
   }: RegistrarClienteUseCaseInput): Promise<RegistrarClienteUseCaseOutput> {
-    if (await this.clienteRepository.exists(new Email(email))) {
+    if (email && (await this.clienteRepository.exists(new Email(email)))) {
       throw new ClienteAlreadyExistsException();
     }
     const user = Cliente.create({
@@ -38,7 +39,7 @@ export class RegistrarClienteUseCase implements IRegistrarClienteUseCase {
     return {
       id: saved.id.value,
       nome: saved.nome.value,
-      email: saved.email.value,
+      email: saved.email?.value,
       telefone: saved.telefone,
     };
   }

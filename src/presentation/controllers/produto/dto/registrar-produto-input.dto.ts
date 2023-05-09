@@ -22,10 +22,6 @@ export class RegistrarProdutoInput {
 
   @IsNumber()
   @ApiProperty()
-  codigo!: number;
-
-  @IsNumber()
-  @ApiProperty()
   @Min(1)
   valor!: number;
 
@@ -33,15 +29,13 @@ export class RegistrarProdutoInput {
     nome,
     descricao,
     materia_prima,
-    codigo,
     valor,
   }: RegistrarProdutoInput): RegistraProdutoUseCaseInput {
     return {
       nome,
       descricao,
-      codigo,
       valor,
-      itenMateriaPrima: materia_prima.map((e) => {
+      itemMateriaPrima: materia_prima.map((e) => {
         return { ...e, idMateriaPrima: e.id };
       }),
     };

@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 import type { RegistrarClienteUseCaseInput } from '@app/use-cases/cliente';
 
@@ -12,13 +12,14 @@ export class RegistrarClienteInput {
   })
   nome!: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'es.eduardoconti@gmail.com',
   })
   @IsString()
+  @IsOptional()
   @MinLength(2)
   @MaxLength(255)
-  email!: string;
+  email?: string;
 
   @ApiProperty({
     example: '(44)984089729',

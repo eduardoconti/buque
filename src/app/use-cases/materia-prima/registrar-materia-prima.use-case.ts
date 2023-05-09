@@ -34,7 +34,7 @@ export class RegistrarMateriaPrimaUseCase
     const materiaPrima = MateriaPrima.create({
       nome,
       descricao,
-      valorUnitario: valorUnitario,
+      valorUnitario,
     });
 
     await this.materiaPrimaRepository.save(materiaPrima);

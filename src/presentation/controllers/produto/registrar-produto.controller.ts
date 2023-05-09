@@ -41,12 +41,11 @@ export class RegistrarProdutoController {
   @ApiBearerAuth()
   async handle(
     @Body()
-    { materia_prima, codigo, nome, descricao, valor }: RegistrarProdutoInput,
+    { materia_prima, nome, descricao, valor }: RegistrarProdutoInput,
   ): Promise<RegistrarProdutoOutput> {
     const result = await this.registrarProdutouseCase.execute(
       RegistrarProdutoInput.mapToUseCaseInput({
         materia_prima,
-        codigo,
         nome,
         descricao,
         valor,

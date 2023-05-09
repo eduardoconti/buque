@@ -9,7 +9,6 @@ import { ProdutoMateriaPrima } from './produto-materia-prima.entity';
 export interface PropriedadesProduto {
   nome: Nome;
   descricao: string;
-  codigo: number;
   produtoMateriaPrima: ProdutoMateriaPrima[];
   valor: Amount;
 }
@@ -18,7 +17,6 @@ export interface PropriedadesPrimitivasProduto {
   id: string;
   nome: string;
   descricao: string;
-  codigo: number;
   produtoMateriaPrima: PropriedadesPrimitivasProdutoMateriaPrima[];
   dataInclusao: Date;
   dataAlteracao: Date;
@@ -43,7 +41,6 @@ export class Produto extends Entity<PropriedadesProduto> {
   static create({
     nome,
     descricao,
-    codigo,
     produtoMateriaPrima,
     valor,
   }: Omit<
@@ -60,7 +57,6 @@ export class Produto extends Entity<PropriedadesProduto> {
       id: idProduto,
       props: {
         nome: new Nome(nome),
-        codigo,
         descricao,
         valor: new Amount(valor),
         produtoMateriaPrima: produtoMateriaPrima.map((e) =>

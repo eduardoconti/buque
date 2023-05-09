@@ -6,5 +6,5 @@ export class RegistrarProdutoOutput {
   @ApiProperty()
   nome!: string;
   @ApiProperty()
-  codigo!: number;
+  descricao!: string;
 }

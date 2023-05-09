@@ -1,10 +1,19 @@
-import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Inject,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import {
   IRegistrarClienteUseCase,
   RegistrarClienteUseCase,
 } from '@app/use-cases/cliente';
+
+import { JwtAuthGuard } from '@infra/guard';
 
 import {
   ApiInternalServerErrorResponse,
@@ -15,6 +24,7 @@ import { RegistrarClienteInput, RegistrarClienteOutput } from './dto';
 
 @ApiTags('cliente')
 @Controller('cliente')
+@UseGuards(JwtAuthGuard)
 export class RegistrarClienteController {
   constructor(
     @Inject(RegistrarClienteUseCase)
@@ -34,6 +44,7 @@ export class RegistrarClienteController {
     title: 'ClienteRepositoryException',
     detail: 'database error',
   })
+  @ApiBearerAuth()
   async handle(
     @Body() data: RegistrarClienteInput,
   ): Promise<RegistrarClienteOutput> {

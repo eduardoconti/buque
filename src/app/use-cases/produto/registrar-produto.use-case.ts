@@ -10,19 +10,22 @@ import { UUID } from '@domain/value-objects';
 export interface RegistraProdutoUseCaseInput {
   nome: string;
   descricao: string;
-  itenMateriaPrima: Pick<
+  itemMateriaPrima: Pick<
     PropriedadesPrimitivasProdutoMateriaPrima,
     'quantidade' | 'idMateriaPrima'
   >[];
-  codigo: number;
   valor: number;
 }
 
 export interface RegistraProdutoUseCaseOutput {
   id: string;
-  codigo: number;
   nome: string;
   valor: number;
+  descricao: string;
+  itemMateriaPrima: Pick<
+    PropriedadesPrimitivasProdutoMateriaPrima,
+    'quantidade' | 'idMateriaPrima'
+  >[];
 }
 
 export type IRegistraProdutoUseCase = IUseCase<
@@ -37,12 +40,11 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
   async execute({
     nome,
     descricao,
-    itenMateriaPrima,
-    codigo,
+    itemMateriaPrima,
     valor,
   }: RegistraProdutoUseCaseInput): Promise<RegistraProdutoUseCaseOutput> {
     await Promise.all(
-      itenMateriaPrima.map((e) =>
+      itemMateriaPrima.map((e) =>
         this.materiaPrimaRepository.findOneById(new UUID(e.idMateriaPrima)),
       ),
     );
@@ -50,8 +52,7 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
     const produto = Produto.create({
       nome,
       descricao,
-      produtoMateriaPrima: itenMateriaPrima,
-      codigo,
+      produtoMateriaPrima: itemMateriaPrima,
       valor,
     });
 
@@ -59,8 +60,9 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
     return {
       id: produto.id.value,
       nome,
-      codigo: produto.props.codigo,
       valor: produto.valor.value,
+      descricao,
+      itemMateriaPrima,
     };
   }
 }

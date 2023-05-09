@@ -20,7 +20,6 @@ export const mockProdutoEntity = new Produto({
   props: {
     nome: new Nome('fake nome'),
     descricao: 'fake descricao',
-    codigo: 999,
     produtoMateriaPrima: [mockProdutoMateriaPrimaEntity],
     valor: new Amount(1000),
   },
