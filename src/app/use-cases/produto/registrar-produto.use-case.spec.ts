@@ -66,13 +66,12 @@ describe('RegistrarProdutouseCase', () => {
       mockRegistraProdutoUseCaseInput,
     );
 
-    expect(result).toStrictEqual(
-      expect.objectContaining({
-        id: expect.any(String),
-        codigo: mockProdutoEntity.props.codigo,
-        nome: mockProdutoEntity.nome.value,
-      }),
-    );
+    expect(result).toStrictEqual({
+      id: expect.any(String),
+      codigo: mockProdutoEntity.props.codigo,
+      nome: mockProdutoEntity.nome.value,
+      valor: mockProdutoEntity.valor.value,
+    });
     expect(materiaPrimaRepository.findOneById).toBeCalledTimes(
       mockRegistraProdutoUseCaseInput.itenMateriaPrima.length,
     );

@@ -1,4 +1,5 @@
 import { Entity } from '@domain/core';
+import { Amount } from '@domain/value-objects';
 import { Nome } from '@domain/value-objects';
 import { UUID } from '@domain/value-objects';
 
@@ -10,6 +11,7 @@ export interface PropriedadesProduto {
   descricao: string;
   codigo: number;
   produtoMateriaPrima: ProdutoMateriaPrima[];
+  valor: Amount;
 }
 
 export interface PropriedadesPrimitivasProduto {
@@ -20,6 +22,7 @@ export interface PropriedadesPrimitivasProduto {
   produtoMateriaPrima: PropriedadesPrimitivasProdutoMateriaPrima[];
   dataInclusao: Date;
   dataAlteracao: Date;
+  valor: number;
 }
 
 export class Produto extends Entity<PropriedadesProduto> {
@@ -33,11 +36,16 @@ export class Produto extends Entity<PropriedadesProduto> {
     return this.props.descricao;
   }
 
+  get valor(): Amount {
+    return this.props.valor;
+  }
+
   static create({
     nome,
     descricao,
     codigo,
     produtoMateriaPrima,
+    valor,
   }: Omit<
     PropriedadesPrimitivasProduto,
     'id' | 'dataAlteracao' | 'dataInclusao' | 'produtoMateriaPrima'
@@ -54,6 +62,7 @@ export class Produto extends Entity<PropriedadesProduto> {
         nome: new Nome(nome),
         codigo,
         descricao,
+        valor: new Amount(valor),
         produtoMateriaPrima: produtoMateriaPrima.map((e) =>
           ProdutoMateriaPrima.create({
             idMateriaPrima: e.idMateriaPrima,

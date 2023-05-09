@@ -37,6 +37,7 @@ model produto {
   data_inclusao         DateTime                @default(now())
   data_alteracao        DateTime                @updatedAt
   itens_pedido          itens_pedido[]
+  valor                 Int
 }
 
 model produto_materia_prima {

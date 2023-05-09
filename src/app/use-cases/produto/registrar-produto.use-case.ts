@@ -15,12 +15,14 @@ export interface RegistraProdutoUseCaseInput {
     'quantidade' | 'idMateriaPrima'
   >[];
   codigo: number;
+  valor: number;
 }
 
 export interface RegistraProdutoUseCaseOutput {
   id: string;
   codigo: number;
   nome: string;
+  valor: number;
 }
 
 export type IRegistraProdutoUseCase = IUseCase<
@@ -37,6 +39,7 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
     descricao,
     itenMateriaPrima,
     codigo,
+    valor,
   }: RegistraProdutoUseCaseInput): Promise<RegistraProdutoUseCaseOutput> {
     await Promise.all(
       itenMateriaPrima.map((e) =>
@@ -49,9 +52,15 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
       descricao,
       produtoMateriaPrima: itenMateriaPrima,
       codigo,
+      valor,
     });
 
     await this.produtoRepository.save(produto);
-    return { id: produto.id.value, nome, codigo: produto.props.codigo };
+    return {
+      id: produto.id.value,
+      nome,
+      codigo: produto.props.codigo,
+      valor: produto.valor.value,
+    };
   }
 }

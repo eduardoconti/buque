@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Produto, ProdutoMateriaPrima } from '@domain/produto/entities';
-import { DateVO, Nome, UUID } from '@domain/value-objects';
+import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
 
 export const mockProdutoMateriaPrimaEntity = new ProdutoMateriaPrima({
   id: new UUID('19badd61-6990-45e3-acf3-faee6eb4e6aa'),
@@ -21,5 +22,6 @@ export const mockProdutoEntity = new Produto({
     descricao: 'fake descricao',
     codigo: 999,
     produtoMateriaPrima: [mockProdutoMateriaPrimaEntity],
+    valor: new Amount(1000),
   },
 });

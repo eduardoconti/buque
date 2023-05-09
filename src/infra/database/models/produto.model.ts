@@ -1,5 +1,5 @@
 import { Produto } from '@domain/produto/entities';
-import { DateVO, Nome, UUID } from '@domain/value-objects';
+import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
 
 import { Model } from './model';
 import { ProdutoMateriaPrimaModel } from './produto-materia-prima.model';
@@ -9,6 +9,7 @@ export class ProdutoModel extends Model {
   descricao!: string;
   codigo!: number;
   produto_materia_prima!: ProdutoMateriaPrimaModel[];
+  valor!: number;
 
   static fromEntity(entity: Produto): ProdutoModel {
     return {
@@ -21,6 +22,7 @@ export class ProdutoModel extends Model {
       ),
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
+      valor: entity.valor.value,
     };
   }
 
@@ -29,6 +31,7 @@ export class ProdutoModel extends Model {
     nome,
     descricao,
     codigo,
+    valor,
     produto_materia_prima,
     data_alteracao,
     data_inclusao,
@@ -41,6 +44,7 @@ export class ProdutoModel extends Model {
         nome: new Nome(nome),
         descricao,
         codigo,
+        valor: new Amount(valor),
         produtoMateriaPrima: produto_materia_prima.map((e) =>
           ProdutoMateriaPrimaModel.toEntity(e),
         ),

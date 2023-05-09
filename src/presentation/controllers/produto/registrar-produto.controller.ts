@@ -25,7 +25,8 @@ export class RegistrarProdutoController {
     statusCode: HttpStatus.CREATED,
   })
   async handle(
-    @Body() { materia_prima, codigo, nome, descricao }: RegistrarProdutoInput,
+    @Body()
+    { materia_prima, codigo, nome, descricao, valor }: RegistrarProdutoInput,
   ): Promise<RegistrarProdutoOutput> {
     const result = await this.registrarProdutouseCase.execute(
       RegistrarProdutoInput.mapToUseCaseInput({
@@ -33,6 +34,7 @@ export class RegistrarProdutoController {
         codigo,
         nome,
         descricao,
+        valor,
       }),
     );
     return result;
