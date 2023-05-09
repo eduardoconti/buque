@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsNumber,
-  IsString,
-  Min,
-  MinLength,
-  ValidateNested,
-} from 'class-validator';
+import { IsNumber, IsString, Min, ValidateNested } from 'class-validator';
 
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
@@ -21,10 +15,9 @@ export class RegistrarProdutoInput {
   @ApiProperty()
   descricao!: string;
 
-  @Type(() => ItemMateriaPrima)
   @ValidateNested()
+  @Type(() => ItemMateriaPrima)
   @ApiProperty({ type: ItemMateriaPrima })
-  @MinLength(1)
   materia_prima!: ItemMateriaPrima[];
 
   @IsNumber()

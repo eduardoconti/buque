@@ -1,7 +1,16 @@
-import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Inject,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { IRegisterUserUseCase, RegisterUserUseCase } from '@app/use-cases';
+
+import { JwtAuthGuard } from '@infra/guard';
 
 import {
   ApiInternalServerErrorResponse,
@@ -12,6 +21,7 @@ import { RegisterUserOutput } from '@presentation/dto/register-user.output.dto';
 
 @ApiTags('user')
 @Controller('user')
+@UseGuards(JwtAuthGuard)
 export class RegisterUserController {
   constructor(
     @Inject(RegisterUserUseCase)
@@ -31,6 +41,7 @@ export class RegisterUserController {
     title: 'UserRepositoryException',
     detail: 'database error',
   })
+  @ApiBearerAuth()
   async handle(@Body() data: RegisterUserInput): Promise<RegisterUserOutput> {
     const { email, nome, id } = await this.registerUserUseCase.execute(
       RegisterUserInput.toUseCaseInput(data),

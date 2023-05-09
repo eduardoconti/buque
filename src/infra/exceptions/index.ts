@@ -8,3 +8,6 @@ export * from './produto-not-found.exception';
 export * from './produto-repository.exception';
 export * from './materia-prima-not-found.exception';
 export * from './materia-prima-repository.exception';
+export * from './cliente-already-exists.exception';
+export * from './cliente-not-found.exception';
+export * from './cliente-repository.exception';

@@ -3,6 +3,10 @@ import type {
   RegisterUserUseCaseOutput,
   UserAuthUseCaseInput,
 } from '@app/use-cases';
+import type {
+  RegistrarClienteUseCaseInput,
+  RegistrarClienteUseCaseOutput,
+} from '@app/use-cases/cliente';
 import type { RegistrarMateriaPrimaUseCaseInput } from '@app/use-cases/materia-prima';
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
@@ -41,4 +45,18 @@ export const mockRegistrarMateriaPrimaUseCase: RegistrarMateriaPrimaUseCaseInput
     nome: 'fake nome',
     descricao: 'fake descricao',
     valorUnitario: 1000,
+  };
+
+export const mockRegistrarClienteUseCaseInput: RegistrarClienteUseCaseInput = {
+  nome: 'Eduardo Conti',
+  email: 'eduardo.conti@gmail.com',
+  telefone: '(44)984089729',
+};
+
+export const mockRegistrarClienteUseCaseOutput: RegistrarClienteUseCaseOutput =
+  {
+    id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+    nome: 'Eduardo Conti',
+    email: 'eduardo.conti@gmail.com',
+    telefone: '(44)984089729',
   };

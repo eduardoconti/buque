@@ -44,6 +44,7 @@ async function bootstrap(): Promise<void> {
     .addTag('health-check', 'Endpoints para monitoramento da api')
     .addTag('auth', 'Endpoints para autenticação')
     .addTag('user', 'Endpoints para gerenciamento de usuário')
+    .addTag('cliente', 'Endpoints para gerenciamento de cliente')
     .addTag('materia-prima', 'Endpoints para gerenciamento de matéria prima')
     .addTag('produto', 'Endpoints para gerenciamento de produto')
     .addBearerAuth({

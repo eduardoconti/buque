@@ -1,10 +1,19 @@
-import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Inject,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import {
   IRegistrarMateriaPrimaUseCase,
   RegistrarMateriaPrimaUseCase,
 } from '@app/use-cases/materia-prima';
+
+import { JwtAuthGuard } from '@infra/guard';
 
 import { ApiSuccessResponse } from '@presentation/__docs__';
 
@@ -12,6 +21,7 @@ import { RegistrarMateriaPrimaOutput } from './dto';
 import { RegistrarMateriaPrimaInput } from './dto';
 @ApiTags('materia-prima')
 @Controller('materia-prima')
+@UseGuards(JwtAuthGuard)
 export class RegistrarMateriaPrimaController {
   constructor(
     @Inject(RegistrarMateriaPrimaUseCase)
@@ -23,6 +33,11 @@ export class RegistrarMateriaPrimaController {
     model: RegistrarMateriaPrimaOutput,
     statusCode: HttpStatus.CREATED,
   })
+  @ApiOperation({
+    summary: 'Registrar matéria prima',
+    description: 'Rota para registrar uma matéria prima',
+  })
+  @ApiBearerAuth()
   async handle(
     @Body() { nome, descricao, valor_unitario }: RegistrarMateriaPrimaInput,
   ): Promise<RegistrarMateriaPrimaOutput> {

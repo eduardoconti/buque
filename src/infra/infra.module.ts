@@ -22,6 +22,7 @@ import { configValidationSchema } from '@main/config';
 import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import {
+  provideClienteRepository,
   provideMateriaPrimaMemoryRepository,
   provideMateriaPrimaRepository,
   provideProdutoMemoryRepository,
@@ -113,6 +114,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideMateriaPrimaMemoryRepository,
     provideProdutoRepository,
     provideMateriaPrimaRepository,
+    provideClienteRepository,
   ],
   exports: [
     HttpService,
@@ -125,6 +127,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideMateriaPrimaMemoryRepository,
     provideProdutoRepository,
     provideMateriaPrimaRepository,
+    provideClienteRepository,
   ],
 })
 export class InfraModule {}

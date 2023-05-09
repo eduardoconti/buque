@@ -1,4 +1,5 @@
 import type { UserEntity, UserProps } from '@domain/entities';
+import type { Cliente, ClienteProps } from '@domain/entities/cliente';
 import type { MateriaPrima } from '@domain/materia-prima/entities';
 import type { Produto } from '@domain/produto/entities';
 import type { Email } from '@domain/value-objects';
@@ -64,6 +65,13 @@ export interface IProdutoRepository
 export interface IMateriaPrimaRepository
   extends IFindOneById<MateriaPrima>,
     ISave<MateriaPrima> {}
+
+export interface IClienteRepository
+  extends ISave<Cliente>,
+    IFindOne<Cliente, ClienteProps> {
+  exists(email: Email): Promise<boolean>;
+}
+
 export type JsonValue = string | JsonObject | JsonArray;
 
 export type JsonObject = { [Key in string]?: JsonValue };

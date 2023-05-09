@@ -1,18 +1,21 @@
 import type { Provider } from '@nestjs/common';
 
 import type {
+  IClienteRepository,
   IMateriaPrimaRepository,
   IProdutoRepository,
   IUserRepository,
 } from '@domain/core';
 
 import {
+  ClienteRepository,
   MateriaPrimaRepository,
   ProdutoRepository,
 } from '@infra/database/prisma';
 import { UserRepository } from '@infra/database/prisma';
 
 import { RegisterUserUseCase, UserAuthUseCase } from './use-cases';
+import { RegistrarClienteUseCase } from './use-cases/cliente';
 import { RegistrarMateriaPrimaUseCase } from './use-cases/materia-prima';
 import { RegistraProdutoUseCase } from './use-cases/produto';
 
@@ -54,4 +57,13 @@ export const provideRegistrarMateriaPrimaUseCase: Provider<RegistrarMateriaPrima
       return new RegistrarMateriaPrimaUseCase(materiaPrimaRepository);
     },
     inject: [MateriaPrimaRepository],
+  };
+
+export const provideRegistrarClienteUseCase: Provider<RegistrarClienteUseCase> =
+  {
+    provide: RegistrarClienteUseCase,
+    useFactory: (materiaPrimaRepository: IClienteRepository) => {
+      return new RegistrarClienteUseCase(materiaPrimaRepository);
+    },
+    inject: [ClienteRepository],
   };

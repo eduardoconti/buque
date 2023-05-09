@@ -21,7 +21,7 @@ model user {
 model cliente {
   id             String   @id
   nome           String
-  email          String   @unique
+  email          String?  @unique
   telefone       String
   data_inclusao  DateTime @default(now())
   data_alteracao DateTime @updatedAt
