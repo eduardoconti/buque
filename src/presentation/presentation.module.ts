@@ -7,9 +7,10 @@ import { InfraModule } from '@infra/infra.module';
 import { AuthController } from './controllers/auth/auth.controller';
 import { RegistrarClienteController } from './controllers/cliente';
 import { HealthCheckController } from './controllers/health-check';
-import { RegistrarMateriaPrimaController } from './controllers/materia-prima';
-import { RegistrarProdutoController } from './controllers/produto';
+import { ListarMateriaPrimaController } from './controllers/materia-prima/listar-materia-prima';
+import { RegistrarMateriaPrimaController } from './controllers/materia-prima/registrar-materia-prima';
 import { ListarProdutosController } from './controllers/produto/listar-produtos';
+import { RegistrarProdutoController } from './controllers/produto/registrar-produto';
 import { RegisterUserController } from './controllers/user';
 
 @Module({
@@ -22,6 +23,7 @@ import { RegisterUserController } from './controllers/user';
     RegistrarMateriaPrimaController,
     RegistrarClienteController,
     ListarProdutosController,
+    ListarMateriaPrimaController,
   ],
 })
 export class PresentationModule {}

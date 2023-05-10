@@ -45,7 +45,7 @@ export class ListarProdutosController {
       mp.id = pmp."id_materiaPrima"
     group by
       p.id
-    order by p.nome asc`,
+    order by LOWER(p.nome) asc`,
     );
     return result;
   }
