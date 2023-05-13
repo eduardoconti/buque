@@ -4,9 +4,11 @@ import { Test } from '@nestjs/testing';
 
 import { mockRegistraProdutoUseCaseInput } from '@app/__mocks__';
 import { provideRegistrarProdutoUseCase } from '@app/app.provider';
+import { ProdutoAlreadyExistsException } from '@app/exceptions';
 
 import { mockMateriaPrimaEntity, mockProdutoEntity } from '@domain/__mocks__';
 import type { IMateriaPrimaRepository, IProdutoRepository } from '@domain/core';
+import { UUID } from '@domain/value-objects';
 
 import {
   MateriaPrimaRepository,
@@ -29,6 +31,7 @@ describe('RegistrarProdutouseCase', () => {
           useValue: {
             findOneById: jest.fn(),
             save: jest.fn(),
+            exists: jest.fn(),
           },
         },
         {
@@ -62,6 +65,7 @@ describe('RegistrarProdutouseCase', () => {
       .mockResolvedValue(mockMateriaPrimaEntity);
 
     jest.spyOn(produtoRepository, 'save').mockResolvedValue(mockProdutoEntity);
+    jest.spyOn(produtoRepository, 'exists').mockResolvedValue(false);
     const result = await registrarProdutouseCase.execute(
       mockRegistraProdutoUseCaseInput,
     );
@@ -86,9 +90,57 @@ describe('RegistrarProdutouseCase', () => {
       mockRegistraProdutoUseCaseInput.itemMateriaPrima.length,
     );
     expect(produtoRepository.save).toBeCalledTimes(1);
+    expect(produtoRepository.save).toBeCalledWith(
+      expect.objectContaining({
+        _dataInclusao: { props: { value: expect.any(Date) } },
+        _id: expect.any(UUID),
+        _updatedAt: { props: { value: expect.any(Date) } },
+        props: {
+          descricao: 'fake descricao',
+          nome: { props: { value: 'fake nome' } },
+          precoCusto: { props: { value: 1000 } },
+          produtoMateriaPrima: [
+            {
+              _dataInclusao: { props: { value: expect.any(Date) } },
+              _id: expect.any(UUID),
+              _updatedAt: { props: { value: expect.any(Date) } },
+              props: {
+                idProduto: expect.any(UUID),
+                materiaPrima: {
+                  _dataInclusao: {
+                    props: { value: expect.any(Date) },
+                  },
+                  _id: expect.any(UUID),
+                  _updatedAt: { props: { value: expect.any(Date) } },
+                  props: {
+                    descricao: 'fake descricao',
+                    nome: { props: { value: 'fake nome' } },
+                    valorUnitario: { props: { value: 1000 } },
+                  },
+                },
+                quantidade: 1,
+              },
+            },
+          ],
+          valor: { props: { value: 1000 } },
+        },
+      }),
+    );
+  });
+
+  it('deve lançar um erro quando já existe produto com mesmo nome', async () => {
+    jest.spyOn(produtoRepository, 'exists').mockResolvedValue(true);
+
+    await expect(
+      registrarProdutouseCase.execute(mockRegistraProdutoUseCaseInput),
+    ).rejects.toThrowError(ProdutoAlreadyExistsException);
+
+    expect(materiaPrimaRepository.findOneById).not.toBeCalled();
+    expect(produtoRepository.save).not.toBeCalled();
   });
 
   it('deve lançar um erro quando a materia prima não for encontrada', async () => {
+    jest.spyOn(produtoRepository, 'exists').mockResolvedValue(false);
     jest
       .spyOn(materiaPrimaRepository, 'findOneById')
       .mockRejectedValue(new Error('any'));
@@ -99,10 +151,12 @@ describe('RegistrarProdutouseCase', () => {
     ).rejects.toThrowError(Error);
 
     expect(materiaPrimaRepository.findOneById).toBeCalledTimes(1);
+    expect(produtoRepository.exists).toBeCalled();
     expect(produtoRepository.save).not.toBeCalled();
   });
 
   it('deve lançar um erro quando alguma materia prima não for encontrada', async () => {
+    jest.spyOn(produtoRepository, 'exists').mockResolvedValue(false);
     jest
       .spyOn(materiaPrimaRepository, 'findOneById')
       .mockResolvedValueOnce(mockMateriaPrimaEntity)
@@ -124,5 +178,6 @@ describe('RegistrarProdutouseCase', () => {
 
     expect(materiaPrimaRepository.findOneById).toBeCalledTimes(2);
     expect(produtoRepository.save).not.toBeCalled();
+    expect(produtoRepository.exists).toBeCalled();
   });
 });

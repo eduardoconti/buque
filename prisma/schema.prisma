@@ -30,12 +30,13 @@ model cliente {
 
 model produto {
   id                    String                  @id
-  nome                  String
+  nome                  String                  @unique
   descricao             String
   produto_materia_prima produto_materia_prima[]
   data_inclusao         DateTime                @default(now())
   data_alteracao        DateTime                @updatedAt
   itens_pedido          itens_pedido[]
+  preco_custo           Int
   valor                 Int
 }
 

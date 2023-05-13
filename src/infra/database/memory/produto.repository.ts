@@ -1,6 +1,6 @@
 import type { IProdutoRepository } from '@domain/core';
 import type { Produto } from '@domain/produto/entities';
-import type { UUID } from '@domain/value-objects';
+import type { Nome, UUID } from '@domain/value-objects';
 
 import { timeoutDelay } from '@infra/utils/timeout';
 const DELAY = 500;
@@ -20,5 +20,10 @@ export class ProdutoMemoryRepository implements IProdutoRepository {
     await timeoutDelay(DELAY);
     produtos.push(produto);
     return produto;
+  }
+
+  async exists(nome: Nome): Promise<boolean> {
+    await timeoutDelay(DELAY);
+    return produtos.find((e) => e.nome.equals(nome)) ? true : false;
   }
 }

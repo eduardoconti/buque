@@ -43,7 +43,7 @@ export class RegistrarProdutoController {
     @Body()
     { materia_prima, nome, descricao, valor }: RegistrarProdutoInput,
   ): Promise<RegistrarProdutoOutput> {
-    const { itemMateriaPrima, ...rest } =
+    const { itemMateriaPrima, precoCusto, ...rest } =
       await this.registrarProdutouseCase.execute(
         RegistrarProdutoInput.mapToUseCaseInput({
           materia_prima,
@@ -52,6 +52,10 @@ export class RegistrarProdutoController {
           valor,
         }),
       );
-    return { ...rest, materia_prima: itemMateriaPrima };
+    return {
+      ...rest,
+      materia_prima: itemMateriaPrima,
+      preco_custo: precoCusto,
+    };
   }
 }

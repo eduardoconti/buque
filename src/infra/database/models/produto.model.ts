@@ -9,6 +9,7 @@ export class ProdutoModel extends Model {
   descricao!: string;
   produto_materia_prima!: ProdutoMateriaPrimaModel[];
   valor!: number;
+  preco_custo!: number;
 
   static fromEntity(entity: Produto): ProdutoModel {
     return {
@@ -21,6 +22,7 @@ export class ProdutoModel extends Model {
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
       valor: entity.valor.value,
+      preco_custo: entity.precoCusto.value,
     };
   }
 
@@ -32,6 +34,7 @@ export class ProdutoModel extends Model {
     produto_materia_prima,
     data_alteracao,
     data_inclusao,
+    preco_custo,
   }: ProdutoModel): Produto {
     return new Produto({
       id: new UUID(id),
@@ -41,6 +44,7 @@ export class ProdutoModel extends Model {
         nome: new Nome(nome),
         descricao,
         valor: new Amount(valor),
+        precoCusto: new Amount(preco_custo),
         produtoMateriaPrima: produto_materia_prima.map((e) =>
           ProdutoMateriaPrimaModel.toEntity(e),
         ),

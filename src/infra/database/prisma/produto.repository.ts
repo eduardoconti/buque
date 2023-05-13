@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import type { IProdutoRepository } from '@domain/core/repository';
 import type { Produto } from '@domain/produto/entities';
-import type { UUID } from '@domain/value-objects';
+import type { Nome, UUID } from '@domain/value-objects';
 
 import {
   ProdutoNotFoundException,
@@ -71,5 +71,17 @@ export class ProdutoRepository implements IProdutoRepository {
       throw new ProdutoNotFoundException('produto nao encontrado');
     }
     return ProdutoModel.toEntity(model);
+  }
+
+  async exists(nome: Nome): Promise<boolean> {
+    try {
+      const model = await this.prismaService.produto.findUnique({
+        where: { nome: nome.value },
+      });
+
+      return model ? true : false;
+    } catch (error) {
+      throw new ProdutoRepositoryException('falha ao buscar produto', error);
+    }
   }
 }

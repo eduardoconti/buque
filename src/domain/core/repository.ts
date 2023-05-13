@@ -2,7 +2,7 @@ import type { UserEntity, UserProps } from '@domain/entities';
 import type { Cliente, ClienteProps } from '@domain/entities/cliente';
 import type { MateriaPrima } from '@domain/materia-prima/entities';
 import type { Produto } from '@domain/produto/entities';
-import type { Email } from '@domain/value-objects';
+import type { Email, Nome } from '@domain/value-objects';
 
 import type { ID } from '../value-objects/id.value-object';
 import type { BaseEntityProps } from './entity';
@@ -60,7 +60,9 @@ export interface IUserRepository
 
 export interface IProdutoRepository
   extends IFindOneById<Produto>,
-    ISave<Produto> {}
+    ISave<Produto> {
+  exists(nome: Nome): Promise<boolean>;
+}
 
 export interface IMateriaPrimaRepository
   extends IFindOneById<MateriaPrima>,

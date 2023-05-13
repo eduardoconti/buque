@@ -37,7 +37,7 @@ export class ListarProdutosController {
       mp.nome,
       'quantidade',
       pmp.quantidade)) as materia_prima,
-      CAST(SUM(mp.valor_unitario * pmp.quantidade) as integer) AS preco_custo
+      p.preco_custo
     from
       buque.produto p
     inner join buque.produto_materia_prima pmp on

@@ -4,13 +4,13 @@ import {
   HttpStatus,
   Inject,
   Post,
-  UseGuards,
+  //UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { IRegisterUserUseCase, RegisterUserUseCase } from '@app/use-cases';
 
-import { JwtAuthGuard } from '@infra/guard';
+//import { JwtAuthGuard } from '@infra/guard';
 
 import {
   ApiInternalServerErrorResponse,
@@ -21,7 +21,7 @@ import { RegisterUserOutput } from '@presentation/dto/register-user.output.dto';
 
 @ApiTags('user')
 @Controller('user')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class RegisterUserController {
   constructor(
     @Inject(RegisterUserUseCase)

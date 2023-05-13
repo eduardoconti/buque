@@ -11,4 +11,8 @@ export class RegistrarProdutoOutput {
   descricao!: string;
   @ApiProperty()
   materia_prima!: ItemMateriaPrimaOutput[];
+  @ApiProperty()
+  valor!: number;
+  @ApiProperty()
+  preco_custo!: number;
 }

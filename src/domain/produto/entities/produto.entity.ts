@@ -11,6 +11,7 @@ export interface PropriedadesProduto {
   descricao: string;
   produtoMateriaPrima: ProdutoMateriaPrima[];
   valor: Amount;
+  precoCusto: Amount;
 }
 
 export interface PropriedadesPrimitivasProduto {
@@ -21,6 +22,7 @@ export interface PropriedadesPrimitivasProduto {
   dataInclusao: Date;
   dataAlteracao: Date;
   valor: number;
+  precoCusto: number;
 }
 
 export class Produto extends Entity<PropriedadesProduto> {
@@ -38,6 +40,10 @@ export class Produto extends Entity<PropriedadesProduto> {
     return this.props.valor;
   }
 
+  get precoCusto(): Amount {
+    return this.props.precoCusto;
+  }
+
   static create({
     nome,
     descricao,
@@ -45,7 +51,11 @@ export class Produto extends Entity<PropriedadesProduto> {
     valor,
   }: Omit<
     PropriedadesPrimitivasProduto,
-    'id' | 'dataAlteracao' | 'dataInclusao' | 'produtoMateriaPrima'
+    | 'id'
+    | 'dataAlteracao'
+    | 'dataInclusao'
+    | 'produtoMateriaPrima'
+    | 'precoCusto'
   > & {
     produtoMateriaPrima: Omit<
       PropriedadesPrimitivasProdutoMateriaPrima,
@@ -53,12 +63,14 @@ export class Produto extends Entity<PropriedadesProduto> {
     >[];
   }): Produto {
     const idProduto = UUID.generate();
-    return new Produto({
+    const zero = 0;
+    const produto = new Produto({
       id: idProduto,
       props: {
         nome: new Nome(nome),
         descricao,
         valor: new Amount(valor),
+        precoCusto: new Amount(zero),
         produtoMateriaPrima: produtoMateriaPrima.map((e) =>
           ProdutoMateriaPrima.create({
             materiaPrima: e.materiaPrima,
@@ -68,6 +80,8 @@ export class Produto extends Entity<PropriedadesProduto> {
         ),
       },
     });
+    produto.calculaCusto();
+    return produto;
   }
 
   // adicionaMateriaPrima(
@@ -103,13 +117,16 @@ export class Produto extends Entity<PropriedadesProduto> {
 
   calculaCusto(): number {
     const zero = 0;
-    return this.props.produtoMateriaPrima.reduce(
+    const precoCusto = this.props.produtoMateriaPrima.reduce(
       (total: number, e: ProdutoMateriaPrima) => {
         return (total +=
           e.props.quantidade * e.props.materiaPrima.valorUnitario.value);
       },
       zero,
     );
+
+    this.props.precoCusto = new Amount(precoCusto);
+    return precoCusto;
   }
 
   // private encontraMateriaPrima(

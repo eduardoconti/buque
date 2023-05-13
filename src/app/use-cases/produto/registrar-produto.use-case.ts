@@ -1,10 +1,12 @@
+import { ProdutoAlreadyExistsException } from '@app/exceptions';
+
 import type {
   IMateriaPrimaRepository,
   IProdutoRepository,
   IUseCase,
 } from '@domain/core';
 import { Produto } from '@domain/produto/entities';
-import { UUID } from '@domain/value-objects';
+import { Nome, UUID } from '@domain/value-objects';
 
 export interface RegistraProdutoUseCaseInput {
   nome: string;
@@ -37,6 +39,9 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
     itemMateriaPrima,
     valor,
   }: RegistraProdutoUseCaseInput): Promise<RegistraProdutoUseCaseOutput> {
+    if (await this.produtoRepository.exists(new Nome(nome))) {
+      throw new ProdutoAlreadyExistsException();
+    }
     const materias = await Promise.all(
       itemMateriaPrima.map(async (e) => {
         const materia = await this.materiaPrimaRepository.findOneById(

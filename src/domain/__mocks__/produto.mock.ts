@@ -24,5 +24,6 @@ export const mockProdutoEntity = new Produto({
     descricao: 'fake descricao',
     produtoMateriaPrima: [mockProdutoMateriaPrimaEntity],
     valor: new Amount(1000),
+    precoCusto: new Amount(1000),
   },
 });
