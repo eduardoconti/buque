@@ -1,16 +1,18 @@
 import { Entity } from '@domain/core';
-import { UUID } from '@domain/value-objects';
+import type { PropriedadesPrimitivasMateriaPrima } from '@domain/materia-prima/entities';
+import { MateriaPrima } from '@domain/materia-prima/entities';
+import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
 
 export interface PropriedadesProdutoMateriaPrima {
   idProduto: UUID;
-  idMateriaPrima: UUID;
+  materiaPrima: MateriaPrima;
   quantidade: number;
 }
 
 export interface PropriedadesPrimitivasProdutoMateriaPrima {
   id: string;
   idProduto: string;
-  idMateriaPrima: string;
+  materiaPrima: PropriedadesPrimitivasMateriaPrima;
   quantidade: number;
   dataInclusao: Date;
   dataAlteracao: Date;
@@ -22,15 +24,15 @@ export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima>
     return this.props.idProduto;
   }
 
-  get idMateriaPrima(): UUID {
-    return this.props.idMateriaPrima;
+  get materiaPrima(): MateriaPrima {
+    return this.props.materiaPrima;
   }
 
   get quantidade(): number {
     return this.props.quantidade;
   }
   static create({
-    idMateriaPrima,
+    materiaPrima,
     idProduto,
     quantidade,
   }: Omit<
@@ -40,7 +42,16 @@ export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima>
     return new ProdutoMateriaPrima({
       id: UUID.generate(),
       props: {
-        idMateriaPrima: new UUID(idMateriaPrima),
+        materiaPrima: new MateriaPrima({
+          id: new UUID(materiaPrima.id),
+          dataAlteracao: new DateVO(materiaPrima.dataAlteracao),
+          dataInclusao: new DateVO(materiaPrima.dataInclusao),
+          props: {
+            descricao: materiaPrima.descricao,
+            nome: new Nome(materiaPrima.nome),
+            valorUnitario: new Amount(materiaPrima.valorUnitario),
+          },
+        }),
         idProduto: new UUID(idProduto),
         quantidade,
       },

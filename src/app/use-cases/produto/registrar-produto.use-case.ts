@@ -3,17 +3,13 @@ import type {
   IProdutoRepository,
   IUseCase,
 } from '@domain/core';
-import type { PropriedadesPrimitivasProdutoMateriaPrima } from '@domain/produto/entities';
 import { Produto } from '@domain/produto/entities';
 import { UUID } from '@domain/value-objects';
 
 export interface RegistraProdutoUseCaseInput {
   nome: string;
   descricao: string;
-  itemMateriaPrima: Pick<
-    PropriedadesPrimitivasProdutoMateriaPrima,
-    'quantidade' | 'idMateriaPrima'
-  >[];
+  itemMateriaPrima: { idMateriaPrima: string; quantidade: number }[];
   valor: number;
 }
 
@@ -23,6 +19,7 @@ export interface RegistraProdutoUseCaseOutput {
   valor: number;
   descricao: string;
   itemMateriaPrima: { id: string; nome: string; quantidade: number }[];
+  precoCusto: number;
 }
 
 export type IRegistraProdutoUseCase = IUseCase<
@@ -46,18 +43,19 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
           new UUID(e.idMateriaPrima),
         );
 
-        return {
-          id: materia.id.value,
-          nome: materia.nome.value,
-          quantidade: e.quantidade,
-        };
+        return { quantidade: e.quantidade, materia };
       }),
     );
 
     const produto = Produto.create({
       nome,
       descricao,
-      produtoMateriaPrima: itemMateriaPrima,
+      produtoMateriaPrima: materias.map((e) => {
+        return {
+          quantidade: e.quantidade,
+          materiaPrima: e.materia.toPrimitives(),
+        };
+      }),
       valor,
     });
 
@@ -67,7 +65,14 @@ export class RegistraProdutoUseCase implements IRegistraProdutoUseCase {
       nome,
       valor: produto.valor.value,
       descricao,
-      itemMateriaPrima: materias,
+      itemMateriaPrima: materias.map(({ quantidade, materia }) => {
+        return {
+          id: materia.id.value,
+          nome: materia.nome.value,
+          quantidade: quantidade,
+        };
+      }),
+      precoCusto: produto.calculaCusto(),
     };
   }
 }

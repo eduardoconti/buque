@@ -13,4 +13,6 @@ export class ListarProdutoOutput {
   @Type(() => ItemMateriaPrimaOutput)
   @ApiProperty({ type: ItemMateriaPrimaOutput, isArray: true })
   materia_prima!: ItemMateriaPrimaOutput[];
+  @ApiProperty()
+  preco_custo!: string;
 }

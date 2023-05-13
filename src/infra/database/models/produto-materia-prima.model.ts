@@ -13,7 +13,7 @@ export class ProdutoMateriaPrimaModel {
     return {
       id: entity.id.value,
       id_produto: entity.idProduto.value,
-      id_materiaPrima: entity.idMateriaPrima.value,
+      id_materiaPrima: entity.materiaPrima.id.value,
       quantidade: entity.quantidade,
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
@@ -33,7 +33,8 @@ export class ProdutoMateriaPrimaModel {
       dataAlteracao: new DateVO(data_alteracao),
       dataInclusao: new DateVO(data_inclusao),
       props: {
-        idMateriaPrima: new UUID(id_materiaPrima),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        materiaPrima: new UUID(id_materiaPrima) as any,
         idProduto: new UUID(id_produto),
         quantidade,
       },

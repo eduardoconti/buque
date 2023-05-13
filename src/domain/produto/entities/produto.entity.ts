@@ -61,7 +61,7 @@ export class Produto extends Entity<PropriedadesProduto> {
         valor: new Amount(valor),
         produtoMateriaPrima: produtoMateriaPrima.map((e) =>
           ProdutoMateriaPrima.create({
-            idMateriaPrima: e.idMateriaPrima,
+            materiaPrima: e.materiaPrima,
             idProduto: idProduto.value,
             quantidade: e.quantidade,
           }),
@@ -70,28 +70,28 @@ export class Produto extends Entity<PropriedadesProduto> {
     });
   }
 
-  adicionaMateriaPrima(
-    materiaPrima: Omit<PropriedadesPrimitivasProdutoMateriaPrima, 'id'>[],
-  ): void {
-    materiaPrima.forEach(({ idMateriaPrima, quantidade }) => {
-      const materiaPrimaPertencenteAoProduto = this.encontraMateriaPrima(
-        new UUID(idMateriaPrima),
-      );
+  // adicionaMateriaPrima(
+  //   materiaPrima: Omit<PropriedadesPrimitivasProdutoMateriaPrima, 'id'>[],
+  // ): void {
+  //   materiaPrima.forEach(({ idMateriaPrima, quantidade }) => {
+  //     const materiaPrimaPertencenteAoProduto = this.encontraMateriaPrima(
+  //       new UUID(idMateriaPrima),
+  //     );
 
-      if (materiaPrimaPertencenteAoProduto) {
-        materiaPrimaPertencenteAoProduto.adicionaQuantidade(quantidade);
-        return;
-      }
+  //     if (materiaPrimaPertencenteAoProduto) {
+  //       materiaPrimaPertencenteAoProduto.adicionaQuantidade(quantidade);
+  //       return;
+  //     }
 
-      this.props.produtoMateriaPrima.push(
-        ProdutoMateriaPrima.create({
-          idMateriaPrima,
-          quantidade,
-          idProduto: this.id.value,
-        }),
-      );
-    });
-  }
+  //     this.props.produtoMateriaPrima.push(
+  //       ProdutoMateriaPrima.create({
+  //         idMateriaPrima,
+  //         quantidade,
+  //         idProduto: this.id.value,
+  //       }),
+  //     );
+  //   });
+  // }
 
   alteraNomeDoProduto(nome: Nome): void {
     this.props.nome = nome;
@@ -101,11 +101,22 @@ export class Produto extends Entity<PropriedadesProduto> {
     this.props.descricao = descricao;
   }
 
-  private encontraMateriaPrima(
-    idMateriaPrima: UUID,
-  ): ProdutoMateriaPrima | undefined {
-    return this.props.produtoMateriaPrima.find((e) =>
-      e.props.idMateriaPrima.equals(idMateriaPrima),
+  calculaCusto(): number {
+    const zero = 0;
+    return this.props.produtoMateriaPrima.reduce(
+      (total: number, e: ProdutoMateriaPrima) => {
+        return (total +=
+          e.props.quantidade * e.props.materiaPrima.valorUnitario.value);
+      },
+      zero,
     );
   }
+
+  // private encontraMateriaPrima(
+  //   idMateriaPrima: UUID,
+  // ): ProdutoMateriaPrima | undefined {
+  //   return this.props.produtoMateriaPrima.find((e) =>
+  //     e.props.materiaPrima.id.equals(idMateriaPrima),
+  //   );
+  // }
 }

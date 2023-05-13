@@ -49,4 +49,15 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
       },
     });
   }
+
+  toPrimitives(): PropriedadesPrimitivasMateriaPrima {
+    return {
+      dataAlteracao: this.dataAlteracao.value,
+      dataInclusao: this.dataInclusao.value,
+      descricao: this.props.descricao,
+      id: this.id.value,
+      nome: this.nome.value,
+      valorUnitario: this.valorUnitario.value,
+    };
+  }
 }

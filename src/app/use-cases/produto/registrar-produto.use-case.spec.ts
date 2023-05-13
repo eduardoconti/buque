@@ -78,6 +78,7 @@ describe('RegistrarProdutouseCase', () => {
           };
         },
       ),
+      precoCusto: 1000,
       nome: mockProdutoEntity.nome.value,
       valor: mockProdutoEntity.valor.value,
     });

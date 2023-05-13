@@ -1,6 +1,6 @@
 import type { TokenPayload } from '@app/contracts';
 
-import type { RegistrarClienteInput } from '@presentation/controllers/cliente/dto';
+import type { RegistrarClienteInput } from '@presentation/controllers/cliente/registrar-cliente/dto';
 import type { RegisterUserInput } from '@presentation/dto';
 
 export const mockRegisterUserInput: RegisterUserInput = {

@@ -36,7 +36,8 @@ export class ListarProdutosController {
       'nome',
       mp.nome,
       'quantidade',
-      pmp.quantidade)) as materia_prima
+      pmp.quantidade)) as materia_prima,
+      CAST(SUM(mp.valor_unitario * pmp.quantidade) as integer) AS preco_custo
     from
       buque.produto p
     inner join buque.produto_materia_prima pmp on
@@ -47,6 +48,8 @@ export class ListarProdutosController {
       p.id
     order by LOWER(p.nome) asc`,
     );
+
+    console.log(result);
     return result;
   }
 }
