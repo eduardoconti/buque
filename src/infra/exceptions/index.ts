@@ -11,3 +11,6 @@ export * from './materia-prima-repository.exception';
 export * from './cliente-already-exists.exception';
 export * from './cliente-not-found.exception';
 export * from './cliente-repository.exception';
+export * from './fornecedor-already-exists.exception';
+export * from './fornecedor-not-found.exception';
+export * from './fornecedor-repository.exception';

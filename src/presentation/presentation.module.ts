@@ -7,6 +7,7 @@ import { InfraModule } from '@infra/infra.module';
 import { AuthController } from './controllers/auth/auth.controller';
 import { ListarClientesController } from './controllers/cliente/listar-clientes';
 import { RegistrarClienteController } from './controllers/cliente/registrar-cliente';
+import { RegistrarFornecedorController } from './controllers/fornecedor/registrar-cliente';
 import { HealthCheckController } from './controllers/health-check';
 import { ListarMateriaPrimaController } from './controllers/materia-prima/listar-materia-prima';
 import { RegistrarMateriaPrimaController } from './controllers/materia-prima/registrar-materia-prima';
@@ -26,6 +27,7 @@ import { RegisterUserController } from './controllers/user';
     ListarProdutosController,
     ListarMateriaPrimaController,
     ListarClientesController,
+    RegistrarFornecedorController,
   ],
 })
 export class PresentationModule {}

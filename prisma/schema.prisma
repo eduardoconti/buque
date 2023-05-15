@@ -68,6 +68,7 @@ model fornecedor {
   nome                     String
   telefone                 String
   site                     String?
+  email                    String?
   data_inclusao            DateTime                   @default(now())
   data_alteracao           DateTime                   @updatedAt
   fornecedor_materia_prima fornecedor_materia_prima[]

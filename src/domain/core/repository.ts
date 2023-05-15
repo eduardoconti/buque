@@ -1,8 +1,13 @@
 import type { UserEntity, UserProps } from '@domain/entities';
 import type { Cliente, ClienteProps } from '@domain/entities/cliente';
+import type {
+  Fornecedor,
+  FornecedorMateriaPrima,
+  FornecedorProps,
+} from '@domain/entities/fornecedor';
 import type { MateriaPrima } from '@domain/materia-prima/entities';
 import type { Produto } from '@domain/produto/entities';
-import type { Email, Nome } from '@domain/value-objects';
+import type { Email, Nome, UUID } from '@domain/value-objects';
 
 import type { ID } from '../value-objects/id.value-object';
 import type { BaseEntityProps } from './entity';
@@ -72,6 +77,14 @@ export interface IClienteRepository
   extends ISave<Cliente>,
     IFindOne<Cliente, ClienteProps> {
   exists(email: Email): Promise<boolean>;
+}
+
+export interface IFornecedorRepository
+  extends ISave<Fornecedor>,
+    IFindOne<Fornecedor, FornecedorProps> {
+  findMateriaPrimaTrabalhada(
+    idFornecedor: UUID,
+  ): Promise<FornecedorMateriaPrima[]>;
 }
 
 export type JsonValue = string | JsonObject | JsonArray;

@@ -7,6 +7,10 @@ import type {
   RegistrarClienteUseCaseInput,
   RegistrarClienteUseCaseOutput,
 } from '@app/use-cases/cliente';
+import type {
+  RegistrarFornecedorUseCaseInput,
+  RegistrarFornecedorUseCaseOutput,
+} from '@app/use-cases/fornecedor';
 import type { RegistrarMateriaPrimaUseCaseInput } from '@app/use-cases/materia-prima';
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
@@ -58,4 +62,30 @@ export const mockRegistrarClienteUseCaseOutput: RegistrarClienteUseCaseOutput =
     nome: 'Eduardo Conti',
     email: 'eduardo.conti@gmail.com',
     telefone: '(44)984089729',
+  };
+
+export const mockRegistrarFornecedorUseCaseInput: RegistrarFornecedorUseCaseInput =
+  {
+    nome: 'Eduardo Conti',
+    email: 'eduardo.conti@gmail.com',
+    telefone: '(44)984089729',
+    materiaPrimaTrabalhada: [
+      {
+        id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+      },
+    ],
+  };
+
+export const mockRegistrarFornecedorUseCaseOutput: RegistrarFornecedorUseCaseOutput =
+  {
+    id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+    nome: 'Eduardo Conti',
+    email: 'eduardo.conti@gmail.com',
+    telefone: '(44)984089729',
+    materiaPrimaTrabalhada: [
+      {
+        id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+        nome: 'fake',
+      },
+    ],
   };

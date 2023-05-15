@@ -1,5 +1,5 @@
 import { Entity } from '@domain/core';
-import { Amount } from '@domain/value-objects';
+import { Amount, DateVO } from '@domain/value-objects';
 import { Nome } from '@domain/value-objects';
 import { UUID } from '@domain/value-objects';
 
@@ -45,6 +45,26 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
       props: {
         nome: new Nome(nome),
         descricao,
+        valorUnitario: new Amount(valorUnitario),
+      },
+    });
+  }
+
+  static fromPrimitives({
+    id,
+    dataAlteracao,
+    dataInclusao,
+    descricao,
+    nome,
+    valorUnitario,
+  }: PropriedadesPrimitivasMateriaPrima): MateriaPrima {
+    return new MateriaPrima({
+      id: new UUID(id),
+      dataAlteracao: new DateVO(dataAlteracao),
+      dataInclusao: new DateVO(dataInclusao),
+      props: {
+        descricao,
+        nome: new Nome(nome),
         valorUnitario: new Amount(valorUnitario),
       },
     });

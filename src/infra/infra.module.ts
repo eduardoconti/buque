@@ -23,6 +23,7 @@ import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import {
   provideClienteRepository,
+  provideFornecedorRepository,
   provideMateriaPrimaMemoryRepository,
   provideMateriaPrimaRepository,
   provideProdutoMemoryRepository,
@@ -117,6 +118,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideMateriaPrimaRepository,
     provideClienteRepository,
     provideSqlManager,
+    provideFornecedorRepository,
   ],
   exports: [
     HttpService,
@@ -130,6 +132,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideProdutoRepository,
     provideMateriaPrimaRepository,
     provideClienteRepository,
+    provideFornecedorRepository,
     provideSqlManager,
   ],
 })
