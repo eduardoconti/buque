@@ -11,7 +11,7 @@ export interface RegistrarFornecedorUseCaseOutput {
   email?: string;
   telefone: string;
   site?: string;
-  materiaPrimaTrabalhada: { id: string; nome: string }[];
+  materiaPrimaTrabalhada?: { id: string; nome: string }[];
   id: string;
 }
 export interface RegistrarFornecedorUseCaseInput {
@@ -19,7 +19,7 @@ export interface RegistrarFornecedorUseCaseInput {
   email?: string;
   telefone: string;
   site?: string;
-  materiaPrimaTrabalhada: { id: string }[];
+  materiaPrimaTrabalhada?: { id: string }[];
 }
 
 export type IRegistrarFornecedorUseCase = IUseCase<
@@ -39,30 +39,29 @@ export class RegistrarFornecedorUseCase implements IRegistrarFornecedorUseCase {
     site,
     materiaPrimaTrabalhada,
   }: RegistrarFornecedorUseCaseInput): Promise<RegistrarFornecedorUseCaseOutput> {
-    const materiaPrima = await Promise.all(
-      materiaPrimaTrabalhada.map((e) =>
-        this.materiaPrimaRepository.findOneById(new UUID(e.id)),
-      ),
-    );
-    const materiaPrimaPrimitivos = materiaPrima.map((e) => e.toPrimitives());
-    const user = Fornecedor.create({
+    const fornecedor = Fornecedor.create({
       nome,
       email,
       telefone,
       site,
-      materiaPrimaTrabalhada: materiaPrimaPrimitivos.map((e) => {
-        return {
-          id: e.id,
-          dataAlteracao: e.dataAlteracao,
-          dataInclusao: e.dataInclusao,
-          descricao: e.descricao,
-          nome: e.nome,
-          valorUnitario: e.valorUnitario,
-        };
-      }),
     });
 
-    const saved = await this.fornecedorRepository.save(user);
+    const materiaPrimaPrimitivos: { id: string; nome: string }[] = [];
+
+    if (materiaPrimaTrabalhada) {
+      const materiaPrima = await Promise.all(
+        materiaPrimaTrabalhada.map((e) =>
+          this.materiaPrimaRepository.findOneById(new UUID(e.id)),
+        ),
+      );
+      materiaPrima.map((e) => {
+        const primitives = e.toPrimitives();
+        materiaPrimaPrimitivos.push(primitives);
+        fornecedor.adicionaMateriaPrimaTrabalhada(primitives);
+      });
+    }
+
+    const saved = await this.fornecedorRepository.save(fornecedor);
 
     return {
       id: saved.id.value,

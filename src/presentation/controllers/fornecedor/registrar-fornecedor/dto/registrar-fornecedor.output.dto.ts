@@ -30,8 +30,8 @@ export class RegistrarFornecedorOutput {
   })
   site?: string;
 
-  @ApiProperty({ type: FornecedorMateriaPrimaOutput })
-  materia_prima_trabalhada!: FornecedorMateriaPrimaOutput[];
+  @ApiPropertyOptional({ type: FornecedorMateriaPrimaOutput })
+  materia_prima_trabalhada?: FornecedorMateriaPrimaOutput[];
 
   static fromUseCaseOutput({
     id,
@@ -47,7 +47,7 @@ export class RegistrarFornecedorOutput {
       telefone,
       email,
       site,
-      materia_prima_trabalhada: materiaPrimaTrabalhada.map(({ id, nome }) => {
+      materia_prima_trabalhada: materiaPrimaTrabalhada?.map(({ id, nome }) => {
         return {
           id_materia_prima: id,
           nome,

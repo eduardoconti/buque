@@ -31,7 +31,7 @@ export class RegistrarFornecedorController {
     private readonly registrarFornecedorUseCase: IRegistrarFornecedorUseCase,
   ) {}
 
-  @Post('')
+  @Post()
   @ApiOperation({
     summary: 'Registrar fornecedor',
     description: 'Rota para registrar um fornecedor',

@@ -39,10 +39,11 @@ export class RegistrarFornecedorInput {
   @MaxLength(255)
   telefone!: string;
 
-  @ApiProperty({ type: FornecedorMateriaPrimaInput, isArray: true })
+  @ApiPropertyOptional({ type: FornecedorMateriaPrimaInput, isArray: true })
+  @IsOptional()
   @ValidateNested()
   @Type(() => FornecedorMateriaPrimaInput)
-  materia_prima_trabalhada!: FornecedorMateriaPrimaInput[];
+  materia_prima_trabalhada?: FornecedorMateriaPrimaInput[];
 
   @ApiPropertyOptional({
     example: 'www.shopee.com.br',
@@ -63,7 +64,7 @@ export class RegistrarFornecedorInput {
       telefone,
       nome,
       site,
-      materiaPrimaTrabalhada: materia_prima_trabalhada.map((e) => {
+      materiaPrimaTrabalhada: materia_prima_trabalhada?.map((e) => {
         return { id: e.id_materia_prima };
       }),
     };

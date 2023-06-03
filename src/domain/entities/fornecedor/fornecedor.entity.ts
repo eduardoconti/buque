@@ -26,19 +26,21 @@ export interface FornecedorPrimitivesProps {
   >[];
 }
 
+interface MateriaPrimaTrabalhada {
+  id: string;
+  nome: string;
+  descricao: string;
+  valorUnitario: number;
+  dataInclusao: Date;
+  dataAlteracao: Date;
+}
+
 interface CreateFornecedorEntity {
   nome: string;
   telefone: string;
   site?: string;
   email?: string;
-  materiaPrimaTrabalhada: {
-    id: string;
-    nome: string;
-    descricao: string;
-    valorUnitario: number;
-    dataInclusao: Date;
-    dataAlteracao: Date;
-  }[];
+  materiaPrimaTrabalhada?: MateriaPrimaTrabalhada[];
 }
 
 export class Fornecedor extends AggregateRoot<FornecedorProps> {
@@ -71,22 +73,33 @@ export class Fornecedor extends AggregateRoot<FornecedorProps> {
         email: email ? new Email(email) : undefined,
         telefone: telefone,
         site,
-        materiaPrimaTrabalhada: materiaPrimaTrabalhada.map((e) => {
-          return FornecedorMateriaPrima.create({
-            materiaPrima: {
-              id: e.id,
-              dataAlteracao: e.dataAlteracao,
-              dataInclusao: e.dataInclusao,
-              descricao: e.descricao,
-              nome: e.nome,
-              valorUnitario: e.valorUnitario,
-            },
-            idFornecedor: idFornecedor.value,
-          });
-        }),
+        materiaPrimaTrabalhada: materiaPrimaTrabalhada
+          ? materiaPrimaTrabalhada.map((e) => {
+              return FornecedorMateriaPrima.create({
+                materiaPrima: {
+                  id: e.id,
+                  dataAlteracao: e.dataAlteracao,
+                  dataInclusao: e.dataInclusao,
+                  descricao: e.descricao,
+                  nome: e.nome,
+                  valorUnitario: e.valorUnitario,
+                },
+                idFornecedor: idFornecedor.value,
+              });
+            })
+          : [],
       },
     });
 
     return entity;
+  }
+
+  adicionaMateriaPrimaTrabalhada(materiaPrima: MateriaPrimaTrabalhada): void {
+    this.props.materiaPrimaTrabalhada.push(
+      FornecedorMateriaPrima.create({
+        materiaPrima,
+        idFornecedor: this.id.value,
+      }),
+    );
   }
 }
