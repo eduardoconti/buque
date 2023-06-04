@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import type { IUserRepository, QueryParams } from '@domain/core/repository';
-import type { UserEntity, UserProps } from '@domain/entities';
+import type { UserEntity, UserProps } from '@domain/entities/user';
 import type { Email } from '@domain/value-objects';
 import { DateVO } from '@domain/value-objects';
 

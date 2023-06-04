@@ -1,7 +1,7 @@
 import { UserAlreadyExistsException } from '@app/exceptions';
 
 import type { IUseCase, IUserRepository } from '@domain/core';
-import { UserEntity } from '@domain/entities';
+import { UserEntity } from '@domain/entities/user';
 import { Email } from '@domain/value-objects';
 
 export type RegisterUserUseCaseOutput = Omit<

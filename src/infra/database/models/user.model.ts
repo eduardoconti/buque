@@ -1,4 +1,4 @@
-import { UserEntity } from '@domain/entities';
+import { UserEntity } from '@domain/entities/user';
 import { DateVO, Email, Nome, Senha, UUID } from '@domain/value-objects';
 
 import { Model } from './model';

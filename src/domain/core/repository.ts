@@ -1,10 +1,10 @@
-import type { UserEntity, UserProps } from '@domain/entities';
 import type { Cliente, ClienteProps } from '@domain/entities/cliente';
 import type {
   Fornecedor,
   FornecedorMateriaPrima,
   FornecedorProps,
 } from '@domain/entities/fornecedor';
+import type { UserEntity, UserProps } from '@domain/entities/user';
 import type { MateriaPrima } from '@domain/materia-prima/entities';
 import type { Produto } from '@domain/produto/entities';
 import type { Email, Nome, UUID } from '@domain/value-objects';
