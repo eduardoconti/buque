@@ -84,29 +84,6 @@ export class Produto extends Entity<PropriedadesProduto> {
     return produto;
   }
 
-  // adicionaMateriaPrima(
-  //   materiaPrima: Omit<PropriedadesPrimitivasProdutoMateriaPrima, 'id'>[],
-  // ): void {
-  //   materiaPrima.forEach(({ idMateriaPrima, quantidade }) => {
-  //     const materiaPrimaPertencenteAoProduto = this.encontraMateriaPrima(
-  //       new UUID(idMateriaPrima),
-  //     );
-
-  //     if (materiaPrimaPertencenteAoProduto) {
-  //       materiaPrimaPertencenteAoProduto.adicionaQuantidade(quantidade);
-  //       return;
-  //     }
-
-  //     this.props.produtoMateriaPrima.push(
-  //       ProdutoMateriaPrima.create({
-  //         idMateriaPrima,
-  //         quantidade,
-  //         idProduto: this.id.value,
-  //       }),
-  //     );
-  //   });
-  // }
-
   alteraNomeDoProduto(nome: Nome): void {
     this.props.nome = nome;
   }
@@ -129,11 +106,18 @@ export class Produto extends Entity<PropriedadesProduto> {
     return precoCusto;
   }
 
-  // private encontraMateriaPrima(
-  //   idMateriaPrima: UUID,
-  // ): ProdutoMateriaPrima | undefined {
-  //   return this.props.produtoMateriaPrima.find((e) =>
-  //     e.props.materiaPrima.id.equals(idMateriaPrima),
-  //   );
-  // }
+  toPrimitives(): PropriedadesPrimitivasProduto {
+    return {
+      dataAlteracao: this.dataAlteracao.value,
+      dataInclusao: this.dataInclusao.value,
+      descricao: this.descricao,
+      id: this.id.value,
+      nome: this.nome.value,
+      precoCusto: this.precoCusto.value,
+      produtoMateriaPrima: this.props.produtoMateriaPrima.map((e) =>
+        e.toPrimitives(),
+      ),
+      valor: this.valor.value,
+    };
+  }
 }

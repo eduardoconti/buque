@@ -14,6 +14,8 @@ import {
 import { HealthCheckController } from './controllers/health-check';
 import { ListarMateriaPrimaController } from './controllers/materia-prima/listar-materia-prima';
 import { RegistrarMateriaPrimaController } from './controllers/materia-prima/registrar-materia-prima';
+import { ListarPedidosController } from './controllers/pedido/listar-pedidos';
+import { RegistrarPedidoController } from './controllers/pedido/registrar-pedido';
 import { ListarProdutosController } from './controllers/produto/listar-produtos';
 import { RegistrarProdutoController } from './controllers/produto/registrar-produto';
 import { RegisterUserController } from './controllers/user';
@@ -32,6 +34,8 @@ import { RegisterUserController } from './controllers/user';
     ListarClientesController,
     RegistrarFornecedorController,
     ListarFornecedoresController,
+    RegistrarPedidoController,
+    ListarPedidosController,
   ],
 })
 export class PresentationModule {}

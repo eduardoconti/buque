@@ -11,7 +11,12 @@ export class ProdutoModel extends Model {
   valor!: number;
   preco_custo!: number;
 
-  static fromEntity(entity: Produto): ProdutoModel {
+  static fromEntity(entity: Produto): Omit<
+    ProdutoModel,
+    'produto_materia_prima'
+  > & {
+    produto_materia_prima: Omit<ProdutoMateriaPrimaModel, 'materia_prima'>[];
+  } {
     return {
       id: entity.id.value,
       nome: entity.props.nome.value,

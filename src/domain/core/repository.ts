@@ -6,6 +6,7 @@ import type {
 } from '@domain/entities/fornecedor';
 import type { UserEntity, UserProps } from '@domain/entities/user';
 import type { MateriaPrima } from '@domain/materia-prima/entities';
+import type { Pedido } from '@domain/pedido/entities';
 import type { Produto } from '@domain/produto/entities';
 import type { Email, Nome, UUID } from '@domain/value-objects';
 
@@ -86,6 +87,8 @@ export interface IFornecedorRepository
     idFornecedor: UUID,
   ): Promise<FornecedorMateriaPrima[]>;
 }
+
+export type IPedidoRepository = ISave<Pedido>;
 
 export type JsonValue = string | JsonObject | JsonArray;
 

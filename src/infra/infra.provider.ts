@@ -12,6 +12,7 @@ import {
   ProdutoRepository,
   FornecedorRepository,
 } from './database/prisma';
+import { PedidoRepository } from './database/prisma/pedido.repository';
 import { SqlManager } from './database/query';
 
 export const provideUserRepository: Provider<UserRepository> = {
@@ -74,6 +75,14 @@ export const provideFornecedorRepository: Provider<FornecedorRepository> = {
   provide: FornecedorRepository,
   useFactory: (prisma: PrismaService) => {
     return new FornecedorRepository(prisma);
+  },
+  inject: [PrismaService],
+};
+
+export const providePedidoRepository: Provider<PedidoRepository> = {
+  provide: PedidoRepository,
+  useFactory: (prisma: PrismaService) => {
+    return new PedidoRepository(prisma);
   },
   inject: [PrismaService],
 };

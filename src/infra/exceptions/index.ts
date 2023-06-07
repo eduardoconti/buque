@@ -14,3 +14,4 @@ export * from './cliente-repository.exception';
 export * from './fornecedor-already-exists.exception';
 export * from './fornecedor-not-found.exception';
 export * from './fornecedor-repository.exception';
+export * from './pedido-repository.exception';

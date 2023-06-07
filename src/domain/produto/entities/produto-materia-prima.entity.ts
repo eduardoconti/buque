@@ -61,4 +61,15 @@ export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima>
   adicionaQuantidade(quantidade: number): void {
     this.props.quantidade += quantidade;
   }
+
+  toPrimitives(): PropriedadesPrimitivasProdutoMateriaPrima {
+    return {
+      dataAlteracao: this.dataAlteracao.value,
+      dataInclusao: this.dataInclusao.value,
+      id: this.id.value,
+      idProduto: this.idProduto.value,
+      quantidade: this.quantidade,
+      materiaPrima: this.materiaPrima.toPrimitives(),
+    };
+  }
 }

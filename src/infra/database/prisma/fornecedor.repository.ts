@@ -54,7 +54,6 @@ export class FornecedorRepository implements IFornecedorRepository {
       });
       return FornecedorModel.toEntity(saved);
     } catch (e) {
-      console.log(e);
       throw new FornecedorRepositoryException(
         'falha ao registar fornecedor',
         e,

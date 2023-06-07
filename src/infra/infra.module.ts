@@ -26,6 +26,7 @@ import {
   provideFornecedorRepository,
   provideMateriaPrimaMemoryRepository,
   provideMateriaPrimaRepository,
+  providePedidoRepository,
   provideProdutoMemoryRepository,
   provideProdutoRepository,
   provideSqlManager,
@@ -119,6 +120,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideClienteRepository,
     provideSqlManager,
     provideFornecedorRepository,
+    providePedidoRepository,
   ],
   exports: [
     HttpService,
@@ -134,6 +136,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideClienteRepository,
     provideFornecedorRepository,
     provideSqlManager,
+    providePedidoRepository,
   ],
 })
 export class InfraModule {}

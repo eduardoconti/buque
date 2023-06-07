@@ -4,6 +4,7 @@ import type {
   IClienteRepository,
   IFornecedorRepository,
   IMateriaPrimaRepository,
+  IPedidoRepository,
   IProdutoRepository,
   IUserRepository,
 } from '@domain/core';
@@ -15,11 +16,13 @@ import {
   ProdutoRepository,
 } from '@infra/database/prisma';
 import { UserRepository } from '@infra/database/prisma';
+import { PedidoRepository } from '@infra/database/prisma/pedido.repository';
 
 import { RegisterUserUseCase, UserAuthUseCase } from './use-cases';
 import { RegistrarClienteUseCase } from './use-cases/cliente';
 import { RegistrarFornecedorUseCase } from './use-cases/fornecedor';
 import { RegistrarMateriaPrimaUseCase } from './use-cases/materia-prima';
+import { RegistrarPedidoUseCase } from './use-cases/pedido';
 import { RegistraProdutoUseCase } from './use-cases/produto';
 
 export const provideUserAuthUseCase: Provider<UserAuthUseCase> = {
@@ -85,3 +88,19 @@ export const provideRegistrarFornecedorUseCase: Provider<RegistrarFornecedorUseC
     },
     inject: [FornecedorRepository, MateriaPrimaRepository],
   };
+
+export const provideRegistrarPedidoUseCase: Provider<RegistrarPedidoUseCase> = {
+  provide: RegistrarPedidoUseCase,
+  useFactory: (
+    produtoRepository: IProdutoRepository,
+    clienteRepository: IClienteRepository,
+    pedidoRepository: IPedidoRepository,
+  ) => {
+    return new RegistrarPedidoUseCase(
+      produtoRepository,
+      clienteRepository,
+      pedidoRepository,
+    );
+  },
+  inject: [ProdutoRepository, ClienteRepository, PedidoRepository],
+};

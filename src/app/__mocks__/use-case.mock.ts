@@ -14,6 +14,11 @@ import type {
 import type { RegistrarMateriaPrimaUseCaseInput } from '@app/use-cases/materia-prima';
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
+import type {
+  RegistrarPedidoUseCaseInput,
+  RegistrarPedidoUseCaseOutput,
+} from '@domain/pedido/use-cases';
+
 export const mockRegisterUserUseCaseInput: RegisterUserUseCaseInput = {
   nome: 'Eduardo Conti',
   email: 'eduardo.conti@gmail.com',
@@ -89,3 +94,24 @@ export const mockRegistrarFornecedorUseCaseOutput: RegistrarFornecedorUseCaseOut
       },
     ],
   };
+
+export const mockRegistrarPedidoUseCaseInput: RegistrarPedidoUseCaseInput = {
+  idCliente: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+  itemPedido: [
+    {
+      idProduto: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+      quantidade: 1,
+    },
+  ],
+};
+
+export const mockRegistrarPedidoUseCaseOutput: RegistrarPedidoUseCaseOutput = {
+  id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+  valor: 1000,
+  itemPedido: [
+    {
+      idProduto: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+      quantidade: 1,
+    },
+  ],
+};

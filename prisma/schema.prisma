@@ -89,7 +89,7 @@ model pedido {
   id             String         @id
   id_cliente     String
   valor          Int
-  data_entrega   String?
+  data_entrega   DateTime?
   status         status_pedido
   data_inclusao  DateTime       @default(now())
   data_alteracao DateTime       @updatedAt

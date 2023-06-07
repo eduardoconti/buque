@@ -7,6 +7,7 @@ import {
   provideRegistrarClienteUseCase,
   provideRegistrarFornecedorUseCase,
   provideRegistrarMateriaPrimaUseCase,
+  provideRegistrarPedidoUseCase,
   provideRegistrarProdutoUseCase,
   provideUserAuthUseCase,
 } from './app.provider';
@@ -19,6 +20,7 @@ import {
     provideRegistrarMateriaPrimaUseCase,
     provideRegistrarClienteUseCase,
     provideRegistrarFornecedorUseCase,
+    provideRegistrarPedidoUseCase,
   ],
   exports: [
     provideRegisterUserUseCase,
@@ -27,6 +29,7 @@ import {
     provideRegistrarMateriaPrimaUseCase,
     provideRegistrarClienteUseCase,
     provideRegistrarFornecedorUseCase,
+    provideRegistrarPedidoUseCase,
   ],
 })
 export class AppModule {}

@@ -6,3 +6,4 @@ export * from './nome.value-object';
 export * from './email.value-object';
 export * from './senha.value-object';
 export * from './host.value-object';
+export * from './quantidade.value-object';

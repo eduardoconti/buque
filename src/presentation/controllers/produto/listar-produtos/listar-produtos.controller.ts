@@ -49,7 +49,6 @@ export class ListarProdutosController {
     order by LOWER(p.nome) asc`,
     );
 
-    console.log(result);
     return result;
   }
 }

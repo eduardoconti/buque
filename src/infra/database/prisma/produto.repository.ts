@@ -44,11 +44,12 @@ export class ProdutoRepository implements IProdutoRepository {
             ),
           },
         },
-        include: { produto_materia_prima: true },
+        include: {
+          produto_materia_prima: { include: { materia_prima: true } },
+        },
       });
       return ProdutoModel.toEntity(saved);
     } catch (e) {
-      console.log(e);
       throw new ProdutoRepositoryException('falha ao registrar produto', e);
     }
   }
@@ -60,7 +61,7 @@ export class ProdutoRepository implements IProdutoRepository {
           id: id.value,
         },
         include: {
-          produto_materia_prima: true,
+          produto_materia_prima: { include: { materia_prima: true } },
         },
       })
       .catch((e) => {
