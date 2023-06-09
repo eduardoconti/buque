@@ -91,6 +91,7 @@ model pedido {
   valor          Int
   data_entrega   DateTime?
   status         status_pedido
+  data_pagamento DateTime?
   data_inclusao  DateTime       @default(now())
   data_alteracao DateTime       @updatedAt
   cliente        cliente        @relation(fields: [id_cliente], references: [id])

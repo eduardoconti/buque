@@ -13,6 +13,7 @@ export class PedidoModel {
   status!: StatusPedido;
   data_inclusao!: Date;
   data_alteracao!: Date;
+  data_pagamento?: Date | null;
   cliente!: ClienteModel;
   itens!: ItemPedidoModel[];
 
@@ -25,6 +26,7 @@ export class PedidoModel {
     data_alteracao,
     data_inclusao,
     itens,
+    data_pagamento,
   }: PedidoModel): Pedido {
     return new Pedido({
       id: new UUID(id),
@@ -36,6 +38,7 @@ export class PedidoModel {
         valor: new Amount(valor),
         dataEntrega: data_entrega ? new DateVO(data_entrega) : undefined,
         itensPedido: itens.map((e) => ItemPedidoModel.toEntity(e)),
+        dataPagamento: data_pagamento ? new DateVO(data_pagamento) : undefined,
       },
     });
   }
@@ -47,11 +50,12 @@ export class PedidoModel {
       id: entity.id.value,
       data_alteracao: entity.dataAlteracao.value,
       data_inclusao: entity.dataInclusao.value,
-      data_entrega: entity.dataEntrega ? entity.dataEntrega.value : null,
+      data_entrega: entity.dataEntrega?.value ?? null,
       id_cliente: entity.idCliente.value,
-      status: entity.props.status,
+      status: entity.status,
       valor: entity.valor.value,
-      itens: entity.props.itensPedido.map((e) => ItemPedidoModel.toModel(e)),
+      itens: entity.itensPedido.map((e) => ItemPedidoModel.toModel(e)),
+      data_pagamento: entity.dataPagamento?.value ?? null,
     };
   }
 }
