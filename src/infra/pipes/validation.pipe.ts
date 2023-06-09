@@ -9,7 +9,10 @@ import { InvalidRequestBodyException } from '../exceptions';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform {
-  async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
+  async transform(
+    value: unknown,
+    { metatype }: ArgumentMetadata,
+  ): Promise<unknown> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
@@ -30,7 +33,7 @@ export class ValidationPipe implements PipeTransform {
     validationErrors: ValidationError[] = [],
   ): InvalidFields[] {
     let errors: InvalidFields[] = [];
-    validationErrors.forEach((validationError: ValidationError): any => {
+    validationErrors.forEach((validationError: ValidationError): void => {
       const { property, constraints = {} } = validationError;
       if (validationError.children) {
         errors = [
@@ -38,7 +41,7 @@ export class ValidationPipe implements PipeTransform {
           ...this.buildInvalidFields(validationError.children),
         ];
       }
-      Object.keys(constraints).forEach((prop: any) => {
+      Object.keys(constraints).forEach((prop: string) => {
         const invalidField = {
           field: property,
           reason: constraints[prop],

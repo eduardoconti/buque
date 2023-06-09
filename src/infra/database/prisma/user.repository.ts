@@ -83,7 +83,7 @@ export class UserRepository implements IUserRepository {
           email: email.value,
         },
       })
-      .catch((e: any) => {
+      .catch((e) => {
         throw new UserRepositoryException('failed to find user on database', e);
       });
 

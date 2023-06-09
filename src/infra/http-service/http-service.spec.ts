@@ -32,6 +32,7 @@ const mockResponseData = {
 describe('HttpService', () => {
   let httpService: IHttpService;
   let mockLogger: LoggerService;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let axiosService: any;
 
   beforeEach(async () => {

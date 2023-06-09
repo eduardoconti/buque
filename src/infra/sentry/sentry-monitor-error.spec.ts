@@ -11,7 +11,7 @@ describe('SentryMonitorError', () => {
     mockClient = {
       instance: jest.fn().mockReturnThis(),
       captureException: jest.fn(),
-    } as any;
+    } as never;
 
     sentryMonitorError = new SentryMonitorError(mockClient);
   });

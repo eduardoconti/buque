@@ -1,4 +1,4 @@
-export interface IQueue<T = any> {
+export interface IQueue<T = unknown> {
   /**
    * The nome of the queue
    */

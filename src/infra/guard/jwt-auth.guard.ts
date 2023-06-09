@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import type { ExecutionContext } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import type { Observable } from 'rxjs';
 
 import {
   InvalidTokenException,
@@ -11,13 +11,18 @@ import {
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  canActivate(context: ExecutionContext) {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
     return super.canActivate(context);
   }
 
-  handleRequest<D>(err: any, user: D, info: any) {
+  handleRequest<D>(
+    _err: Error,
+    user: D,
+    info?: { nome: string },
+  ): NonNullable<D> {
     if (info) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { nome } = info;
       switch (nome) {
         case 'JsonWebTokenError':
@@ -29,7 +34,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       }
     }
 
-    if (!user || err) {
+    if (!user) {
       throw new UnauthorizedException();
     }
 

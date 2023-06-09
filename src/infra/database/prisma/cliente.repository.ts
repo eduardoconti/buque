@@ -54,7 +54,7 @@ export class ClienteRepository implements IClienteRepository {
           email: email.value,
         },
       })
-      .catch((e: any) => {
+      .catch((e) => {
         throw new ClienteRepositoryException('falha ao buscar cliente', e);
       });
 
