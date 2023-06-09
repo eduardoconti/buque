@@ -69,8 +69,7 @@ export class Pedido extends Entity<PropriedadesPedido> {
       props: {
         valor: new Amount(
           itens.reduce(
-            (anterior, current) =>
-              (anterior += current.valor.value * current.quantidade.value),
+            (anterior, current) => (anterior += current.valor.value),
             valorInicial,
           ),
         ),

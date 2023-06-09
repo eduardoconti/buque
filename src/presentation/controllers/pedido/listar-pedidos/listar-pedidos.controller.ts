@@ -33,22 +33,24 @@ export class ListarPedidosController {
       p.data_entrega,
       p.data_inclusao,
       json_agg(json_build_object(
+      'id',
+      ip.id,
       'produto',
-      p2.nome,
+      pdt.nome,
       'quantidade',
       ip.quantidade,
       'valor_unitario',
-      p.valor,
+      pdt.valor,
       'total',
-      (ip.quantidade * p.valor))) as itens
+      (ip.quantidade * pdt.valor))) as item_pedido
     from
       buque.buque.pedido p
     inner join buque.buque.cliente c on
       c.id = p.id_cliente
     inner join buque.buque.itens_pedido ip on
       ip.id_pedido = p.id
-    inner join buque.buque.produto p2 on
-      p2.id = ip.id_produto
+    inner join buque.buque.produto pdt on
+      pdt.id = ip.id_produto
     group by
       p.id,
       c.nome
