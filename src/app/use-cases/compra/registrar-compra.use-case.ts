@@ -44,6 +44,7 @@ export class RegistrarCompraUseCase implements IRegistrarCompraUseCase {
     });
 
     await this.compraRepository.save(compra);
+
     return {
       id: compra.id.value,
       itemCompra: compra.itensCompra.map((e) => {

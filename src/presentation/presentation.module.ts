@@ -7,6 +7,7 @@ import { InfraModule } from '@infra/infra.module';
 import { AuthController } from './controllers/auth/auth.controller';
 import { ListarClientesController } from './controllers/cliente/listar-clientes';
 import { RegistrarClienteController } from './controllers/cliente/registrar-cliente';
+import { ListarComprasController } from './controllers/compra/listar-compras';
 import { RegistrarCompraController } from './controllers/compra/registrar-compra';
 import {
   ListarFornecedoresController,
@@ -38,6 +39,7 @@ import { RegisterUserController } from './controllers/user';
     RegistrarPedidoController,
     ListarPedidosController,
     RegistrarCompraController,
+    ListarComprasController,
   ],
 })
 export class PresentationModule {}

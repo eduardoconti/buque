@@ -1,5 +1,6 @@
 import { Entity } from '@domain/core';
 import type { Amount } from '@domain/value-objects';
+import type { Quantidade } from '@domain/value-objects';
 import { UUID } from '@domain/value-objects';
 
 import { calculaValorItens } from '../services';
@@ -63,11 +64,15 @@ export class Compra extends Entity<PropriedadesCompra> {
   gerarLancamentoEstoque(): {
     custoUnitario: Amount;
     idMateriaPrima: UUID;
+    id: UUID;
+    quantidade: Quantidade;
   }[] {
     return this.itensCompra.map((item) => {
       return {
         custoUnitario: item.valorUnitario,
         idMateriaPrima: item.idMateriaPrima,
+        id: UUID.generate(),
+        quantidade: item.quantidade,
       };
     });
   }

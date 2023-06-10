@@ -14,6 +14,7 @@ export class CompraRepository implements ICompraRepository {
 
   async save(entity: Compra): Promise<Compra> {
     try {
+      const lancamentoEstoque = entity.gerarLancamentoEstoque();
       const { itens_compra, ...model } = CompraModel.fromEntity(entity);
 
       const saved = await this.prismaService.compra.create({
@@ -38,6 +39,18 @@ export class CompraRepository implements ICompraRepository {
                   quantidade,
                   valor_unitario,
                   total_item,
+                };
+              },
+            ),
+          },
+          estoque_materia_prima: {
+            create: lancamentoEstoque.map(
+              ({ custoUnitario, idMateriaPrima, id, quantidade }) => {
+                return {
+                  id: id.value,
+                  custo_unitario: custoUnitario.value,
+                  id_materia_prima: idMateriaPrima.value,
+                  quantidade: quantidade.value,
                 };
               },
             ),

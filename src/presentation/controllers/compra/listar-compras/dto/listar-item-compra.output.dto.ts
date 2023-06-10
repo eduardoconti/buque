@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ListarItemPedidoOutput {
+export class ListarItemCompraOutput {
   @ApiProperty()
-  produto!: string;
+  id!: string;
   @ApiProperty()
   quantidade!: number;
   @ApiProperty()
   valor_unitario!: number;
   @ApiProperty()
-  total!: number;
+  total_item!: number;
 }
