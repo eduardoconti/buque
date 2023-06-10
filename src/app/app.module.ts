@@ -5,6 +5,7 @@ import { InfraModule } from '@infra/infra.module';
 import {
   provideRegisterUserUseCase,
   provideRegistrarClienteUseCase,
+  provideRegistrarCompraUseCase,
   provideRegistrarFornecedorUseCase,
   provideRegistrarMateriaPrimaUseCase,
   provideRegistrarPedidoUseCase,
@@ -21,6 +22,7 @@ import {
     provideRegistrarClienteUseCase,
     provideRegistrarFornecedorUseCase,
     provideRegistrarPedidoUseCase,
+    provideRegistrarCompraUseCase,
   ],
   exports: [
     provideRegisterUserUseCase,
@@ -30,6 +32,7 @@ import {
     provideRegistrarClienteUseCase,
     provideRegistrarFornecedorUseCase,
     provideRegistrarPedidoUseCase,
+    provideRegistrarCompraUseCase,
   ],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import type { Compra } from '@domain/compra/entities';
 import type { Cliente, ClienteProps } from '@domain/entities/cliente';
 import type {
   Fornecedor,
@@ -89,6 +90,8 @@ export interface IFornecedorRepository
 }
 
 export type IPedidoRepository = ISave<Pedido>;
+
+export type ICompraRepository = ISave<Compra>;
 
 export type JsonValue = string | JsonObject | JsonArray;
 

@@ -15,6 +15,10 @@ import type { RegistrarMateriaPrimaUseCaseInput } from '@app/use-cases/materia-p
 import type { RegistraProdutoUseCaseInput } from '@app/use-cases/produto';
 
 import type {
+  RegistrarCompraUseCaseInput,
+  RegistrarCompraUseCaseOutput,
+} from '@domain/compra/use-cases';
+import type {
   RegistrarPedidoUseCaseInput,
   RegistrarPedidoUseCaseOutput,
 } from '@domain/pedido/use-cases';
@@ -112,6 +116,30 @@ export const mockRegistrarPedidoUseCaseOutput: RegistrarPedidoUseCaseOutput = {
     {
       idProduto: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
       quantidade: 1,
+    },
+  ],
+};
+
+export const mockRegistrarCompraUseCaseInput: RegistrarCompraUseCaseInput = {
+  idFornecedor: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+  itemCompra: [
+    {
+      idMateriaPrima: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+      quantidade: 1,
+      valor: 2000,
+    },
+  ],
+};
+
+export const mockRegistrarCompraUseCaseOutput: RegistrarCompraUseCaseOutput = {
+  id: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+  valor: 2000,
+  itemCompra: [
+    {
+      idMateriaPrima: 'b85381d7-174f-4c0a-a2c8-aa93a399965d',
+      quantidade: 1,
+      valor: 2000,
+      valorUnitario: 2000,
     },
   ],
 };

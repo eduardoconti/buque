@@ -5,3 +5,5 @@ export * from './model';
 export * from './cliente.model';
 export * from './fornecedor.model';
 export * from './fornecedor-materia-prima.model';
+export * from './item-compra.model';
+export * from './compra.model';

@@ -23,6 +23,7 @@ import { PrismaService } from './database/prisma';
 import { HttpService } from './http-service';
 import {
   provideClienteRepository,
+  provideCompraRepository,
   provideFornecedorRepository,
   provideMateriaPrimaMemoryRepository,
   provideMateriaPrimaRepository,
@@ -121,6 +122,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideSqlManager,
     provideFornecedorRepository,
     providePedidoRepository,
+    provideCompraRepository,
   ],
   exports: [
     HttpService,
@@ -137,6 +139,7 @@ import { LocalStrategy } from './strategy/auth/local.strategy';
     provideFornecedorRepository,
     provideSqlManager,
     providePedidoRepository,
+    provideCompraRepository,
   ],
 })
 export class InfraModule {}

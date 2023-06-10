@@ -15,3 +15,4 @@ export * from './fornecedor-already-exists.exception';
 export * from './fornecedor-not-found.exception';
 export * from './fornecedor-repository.exception';
 export * from './pedido-repository.exception';
+export * from './compra-repository.exception';

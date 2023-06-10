@@ -61,6 +61,7 @@ model materia_prima {
   data_alteracao           DateTime                   @updatedAt
   itens_compra             itens_compra[]
   valor_unitario           Int
+  estoque_materia_prima    estoque_materia_prima[]
 }
 
 model fornecedor {
@@ -118,13 +119,14 @@ model itens_pedido {
 }
 
 model compra {
-  id             String         @id
-  id_fornecedor  String
-  data_inclusao  DateTime       @default(now())
-  data_alteracao DateTime       @updatedAt
-  fornecedor     fornecedor     @relation(fields: [id_fornecedor], references: [id])
-  valor          Int
-  itens_compra   itens_compra[]
+  id                    String                  @id
+  id_fornecedor         String
+  data_inclusao         DateTime                @default(now())
+  data_alteracao        DateTime                @updatedAt
+  fornecedor            fornecedor              @relation(fields: [id_fornecedor], references: [id])
+  valor                 Int
+  itens_compra          itens_compra[]
+  estoque_materia_prima estoque_materia_prima[]
 }
 
 model itens_compra {
@@ -133,8 +135,22 @@ model itens_compra {
   quantidade       Int
   id_materia_prima String
   valor_unitario   Int
+  total_item       Int
   data_inclusao    DateTime      @default(now())
   data_alteracao   DateTime      @updatedAt
   materia_prima    materia_prima @relation(fields: [id_materia_prima], references: [id])
   compra           compra        @relation(fields: [id_compra], references: [id])
+}
+
+model estoque_materia_prima {
+  id               String        @id
+  id_materia_prima String
+  data_inclusao    DateTime      @default(now())
+  data_alteracao   DateTime      @updatedAt
+  id_compra        String
+  quantidade       Int
+  custo_unitario   Int
+  encerrado        Boolean       @default(false)
+  compra           compra        @relation(fields: [id_compra], references: [id])
+  materia_prima    materia_prima @relation(fields: [id_materia_prima], references: [id])
 }

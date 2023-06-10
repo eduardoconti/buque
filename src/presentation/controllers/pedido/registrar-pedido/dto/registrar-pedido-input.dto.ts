@@ -18,7 +18,7 @@ export class RegistrarPedidoInput {
 
   @ValidateNested()
   @Type(() => ItemPedidoInput)
-  @ApiProperty({ type: ItemPedidoInput })
+  @ApiProperty({ type: ItemPedidoInput, isArray: true })
   item_pedido!: ItemPedidoInput[];
 
   @ApiPropertyOptional()

@@ -2,6 +2,7 @@ import type { Provider } from '@nestjs/common';
 
 import type {
   IClienteRepository,
+  ICompraRepository,
   IFornecedorRepository,
   IMateriaPrimaRepository,
   IPedidoRepository,
@@ -16,10 +17,12 @@ import {
   ProdutoRepository,
 } from '@infra/database/prisma';
 import { UserRepository } from '@infra/database/prisma';
+import { CompraRepository } from '@infra/database/prisma/compra.repository';
 import { PedidoRepository } from '@infra/database/prisma/pedido.repository';
 
 import { RegisterUserUseCase, UserAuthUseCase } from './use-cases';
 import { RegistrarClienteUseCase } from './use-cases/cliente';
+import { RegistrarCompraUseCase } from './use-cases/compra';
 import { RegistrarFornecedorUseCase } from './use-cases/fornecedor';
 import { RegistrarMateriaPrimaUseCase } from './use-cases/materia-prima';
 import { RegistrarPedidoUseCase } from './use-cases/pedido';
@@ -103,4 +106,20 @@ export const provideRegistrarPedidoUseCase: Provider<RegistrarPedidoUseCase> = {
     );
   },
   inject: [ProdutoRepository, ClienteRepository, PedidoRepository],
+};
+
+export const provideRegistrarCompraUseCase: Provider<RegistrarCompraUseCase> = {
+  provide: RegistrarCompraUseCase,
+  useFactory: (
+    materiaPrimaRepository: IMateriaPrimaRepository,
+    fornecedorRepository: IFornecedorRepository,
+    compraRepository: ICompraRepository,
+  ) => {
+    return new RegistrarCompraUseCase(
+      materiaPrimaRepository,
+      fornecedorRepository,
+      compraRepository,
+    );
+  },
+  inject: [MateriaPrimaRepository, FornecedorRepository, CompraRepository],
 };
