@@ -94,11 +94,15 @@ export class Pedido extends Entity<PropriedadesPedido> {
     return produto;
   }
 
-  marcarComoConcluido(): void {
+  concluir(): void {
     this.props.status = 'CONCLUIDO';
   }
 
   realizarPagamento(dataPagamento?: DateVO): void {
     this.props.dataPagamento = dataPagamento ?? DateVO.now();
+  }
+
+  cancelar(): void {
+    this.props.status = 'CANCELADO';
   }
 }

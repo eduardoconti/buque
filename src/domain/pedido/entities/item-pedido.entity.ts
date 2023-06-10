@@ -5,7 +5,7 @@ import { ProdutoMateriaPrima } from '@domain/produto/entities';
 import { Produto } from '@domain/produto/entities';
 import { Quantidade } from '@domain/value-objects';
 import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
-
+const quantidade_item_maxima = 50;
 export interface PropriedadesItemPedido {
   idPedido: UUID;
   produto: Produto;
@@ -90,9 +90,16 @@ export class ItemPedido extends Entity<PropriedadesItemPedido> {
     });
   }
 
-  adicionaQuantidade(quantidade: Quantidade): void {
-    this.props.quantidade = new Quantidade(
-      quantidade.value + this.quantidade.value,
-    );
+  aumentaQuantidade(quantidade: Quantidade): void {
+    const novoValor = quantidade.value + this.quantidade.value;
+    if (novoValor > quantidade_item_maxima) {
+      throw new Error('quantidade maxima permitida');
+    }
+    this.props.quantidade = new Quantidade(novoValor);
+  }
+
+  diminuiQuantidade(quantidade: Quantidade): void {
+    const novoValor = this.quantidade.value - quantidade.value;
+    this.props.quantidade = new Quantidade(novoValor);
   }
 }
