@@ -34,8 +34,9 @@ export class ListarFornecedoresController {
       `select
       fn.id,
       fn.nome,
-      fn.email ,
-      fn.telefone
+      fn.email,
+      fn.telefone,
+      fn.site
     from
       buque.fornecedor fn
     order by LOWER(fn.nome) asc`,
