@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { ListarEstoqueMateriaPrimaOutput } from './listar-estroque-materia-prima.output.dto';
+
 export class ListarMateriaPrimaOutput {
   @ApiProperty()
   id!: string;
@@ -8,5 +10,7 @@ export class ListarMateriaPrimaOutput {
   @ApiProperty()
   descricao!: string;
   @ApiProperty()
-  valor_unitario!: number;
+  quantidade_total!: number;
+  @ApiProperty({ isArray: true, type: ListarEstoqueMateriaPrimaOutput })
+  estoque_materia_prima!: ListarEstoqueMateriaPrimaOutput[];
 }

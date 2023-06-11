@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ISqlManager } from '@domain/core';
 
@@ -23,29 +23,37 @@ export class ListarComprasController {
     model: ListarCompraOutput,
     isArray: true,
   })
+  @ApiOperation({
+    summary: 'Listar compras',
+    description: 'Rota para listar compras',
+  })
   async handle(): Promise<ListarCompraOutput[]> {
     const result = await this.sqlManager.executeQuery<ListarCompraOutput[]>(
       `select
       c.id,
       c.valor,
-      f.nome as fornecedor, 
+      f.nome as fornecedor,
       json_agg(json_build_object(
-        'id',
+            'id',
       ic.id,
+      'materia_prima',
+      mp.nome,
       'quantidade',
       ic.quantidade,
       'valor_unitario',
       ic.valor_unitario,
       'total_item',
       ic.total_item  
-      )) as item_compra,
+          )) as item_compra,
       c.data_inclusao
     from
-      buque.buque.compra c
-    inner join buque.buque.itens_compra ic on
+      buque.compra c
+    inner join buque.itens_compra ic on
       ic.id_compra = c.id
-    inner join buque.buque.fornecedor f on
-      f.id = c.id_fornecedor 
+    inner join buque.fornecedor f on
+      f.id = c.id_fornecedor
+    inner join buque.materia_prima mp on
+      mp.id = ic.id_materia_prima
     group by
       c.id,
       f.nome`,

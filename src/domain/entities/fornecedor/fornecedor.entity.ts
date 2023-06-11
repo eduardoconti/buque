@@ -1,4 +1,5 @@
 import { AggregateRoot } from '@domain/core';
+import type { PropriedadesPrimitivasMateriaPrima } from '@domain/materia-prima/entities';
 import { Email, Nome, UUID } from '@domain/value-objects';
 
 import type { FornecedorMateriaPrimaPrimitivesProps } from './fornecedor-materia-prima.entity';
@@ -20,27 +21,14 @@ export interface FornecedorPrimitivesProps {
   dataInclusao: Date;
   dataAlteracao: Date;
   email?: string;
-  materiaPrimaTrabalhada: Omit<
-    FornecedorMateriaPrimaPrimitivesProps,
-    'idFornecedor'
-  >[];
+  materiaPrimaTrabalhada: FornecedorMateriaPrimaPrimitivesProps[];
 }
-
-interface MateriaPrimaTrabalhada {
-  id: string;
-  nome: string;
-  descricao: string;
-  valorUnitario: number;
-  dataInclusao: Date;
-  dataAlteracao: Date;
-}
-
 interface CreateFornecedorEntity {
   nome: string;
   telefone: string;
   site?: string;
   email?: string;
-  materiaPrimaTrabalhada?: MateriaPrimaTrabalhada[];
+  materiaPrimaTrabalhada?: FornecedorMateriaPrimaPrimitivesProps[];
 }
 
 export class Fornecedor extends AggregateRoot<FornecedorProps> {
@@ -80,9 +68,9 @@ export class Fornecedor extends AggregateRoot<FornecedorProps> {
                   id: e.id,
                   dataAlteracao: e.dataAlteracao,
                   dataInclusao: e.dataInclusao,
-                  descricao: e.descricao,
-                  nome: e.nome,
-                  valorUnitario: e.valorUnitario,
+                  descricao: e.materiaPrima.descricao,
+                  nome: e.materiaPrima.nome,
+                  estoqueMateriaPrima: e.materiaPrima.estoqueMateriaPrima,
                 },
                 idFornecedor: idFornecedor.value,
               });
@@ -94,7 +82,9 @@ export class Fornecedor extends AggregateRoot<FornecedorProps> {
     return entity;
   }
 
-  adicionaMateriaPrimaTrabalhada(materiaPrima: MateriaPrimaTrabalhada): void {
+  adicionaMateriaPrimaTrabalhada(
+    materiaPrima: PropriedadesPrimitivasMateriaPrima,
+  ): void {
     this.props.materiaPrimaTrabalhada.push(
       FornecedorMateriaPrima.create({
         materiaPrima,

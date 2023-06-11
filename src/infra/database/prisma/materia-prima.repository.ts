@@ -20,7 +20,7 @@ export class MateriaPrimaRepository implements IMateriaPrimaRepository {
           id: id.value,
         },
         include: {
-          produto_materia_prima: true,
+          estoque_materia_prima: true,
         },
       })
       .catch((e) => {
@@ -38,10 +38,13 @@ export class MateriaPrimaRepository implements IMateriaPrimaRepository {
 
   async save(entity: MateriaPrima): Promise<MateriaPrima> {
     try {
-      const model = MateriaPrimaModel.fromEntity(entity);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { estoque_materia_prima, ...model } =
+        MateriaPrimaModel.fromEntity(entity);
 
       const saved = await this.prismaService.materia_prima.create({
         data: model,
+        include: { estoque_materia_prima: true },
       });
       return MateriaPrimaModel.toEntity(saved);
     } catch (e) {

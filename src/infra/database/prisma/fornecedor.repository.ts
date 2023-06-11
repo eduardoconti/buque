@@ -47,7 +47,7 @@ export class FornecedorRepository implements IFornecedorRepository {
         include: {
           fornecedor_materia_prima: {
             include: {
-              materia_prima: true,
+              materia_prima: { include: { estoque_materia_prima: true } },
             },
           },
         },
@@ -70,7 +70,7 @@ export class FornecedorRepository implements IFornecedorRepository {
         include: {
           fornecedor_materia_prima: {
             include: {
-              materia_prima: true,
+              materia_prima: { include: { estoque_materia_prima: true } },
             },
           },
         },
@@ -93,7 +93,7 @@ export class FornecedorRepository implements IFornecedorRepository {
   ): Promise<FornecedorMateriaPrima[]> {
     const model = await this.prismaService.fornecedor_materia_prima.findMany({
       where: { id_fornecedor: idFornecedor.value },
-      include: { materia_prima: true },
+      include: { materia_prima: { include: { estoque_materia_prima: true } } },
     });
     if (!model.length) {
       throw new FornecedorNotFoundException('fornecedor não encontrado');

@@ -13,7 +13,7 @@ export class Quantidade extends ValueObject<number> {
   }
 
   protected validate({ value }: DomainPrimitive<number>): void {
-    const regexExp = /^[1-9]\d*$/gi;
+    const regexExp = /^[0-9]\d*$/gi;
     if (!regexExp.test(value.toString())) {
       throw new ArgumentInvalidException('Quantidade incorreta.');
     }

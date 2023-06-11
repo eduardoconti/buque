@@ -59,6 +59,7 @@ export class AplicationProblem {
     if (code === Status.INVALID_REQUEST) return HttpStatus.BAD_REQUEST;
     if (code === Status.SERVICE_UNAVAILABLE)
       return HttpStatus.SERVICE_UNAVAILABLE;
+    if (code === Status.NOT_FOUND) return HttpStatus.NOT_FOUND;
 
     return HttpStatus.INTERNAL_SERVER_ERROR;
   }

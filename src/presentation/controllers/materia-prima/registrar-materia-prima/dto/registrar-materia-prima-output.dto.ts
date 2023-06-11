@@ -7,6 +7,4 @@ export class RegistrarMateriaPrimaOutput {
   nome!: string;
   @ApiProperty()
   descricao!: string;
-  @ApiProperty()
-  valor_unitario!: number;
 }

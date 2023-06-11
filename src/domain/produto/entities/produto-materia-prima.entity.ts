@@ -1,7 +1,8 @@
 import { Entity } from '@domain/core';
 import type { PropriedadesPrimitivasMateriaPrima } from '@domain/materia-prima/entities';
+import { EstoqueMateriaPrima } from '@domain/materia-prima/entities';
 import { MateriaPrima } from '@domain/materia-prima/entities';
-import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
+import { DateVO, Nome, UUID } from '@domain/value-objects';
 
 export interface PropriedadesProdutoMateriaPrima {
   idProduto: UUID;
@@ -49,7 +50,9 @@ export class ProdutoMateriaPrima extends Entity<PropriedadesProdutoMateriaPrima>
           props: {
             descricao: materiaPrima.descricao,
             nome: new Nome(materiaPrima.nome),
-            valorUnitario: new Amount(materiaPrima.valorUnitario),
+            estoqueMateriaPrima: materiaPrima.estoqueMateriaPrima?.map((e) =>
+              EstoqueMateriaPrima.fromPrimitives(e),
+            ),
           },
         }),
         idProduto: new UUID(idProduto),

@@ -45,7 +45,15 @@ export class ProdutoRepository implements IProdutoRepository {
           },
         },
         include: {
-          produto_materia_prima: { include: { materia_prima: true } },
+          produto_materia_prima: {
+            include: {
+              materia_prima: {
+                include: {
+                  estoque_materia_prima: true,
+                },
+              },
+            },
+          },
         },
       });
       return ProdutoModel.toEntity(saved);
@@ -61,7 +69,15 @@ export class ProdutoRepository implements IProdutoRepository {
           id: id.value,
         },
         include: {
-          produto_materia_prima: { include: { materia_prima: true } },
+          produto_materia_prima: {
+            include: {
+              materia_prima: {
+                include: {
+                  estoque_materia_prima: true,
+                },
+              },
+            },
+          },
         },
       })
       .catch((e) => {

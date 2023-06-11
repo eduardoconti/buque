@@ -1,12 +1,17 @@
 import { Entity } from '@domain/core';
-import { Amount, DateVO } from '@domain/value-objects';
+import { ArgumentInvalidException } from '@domain/exceptions';
+import type { Amount } from '@domain/value-objects';
+import { DateVO } from '@domain/value-objects';
 import { Nome } from '@domain/value-objects';
 import { UUID } from '@domain/value-objects';
 
+import { EstoqueMateriaPrima } from './estoque-materia-prima.entity';
+import type { PropriedadesPrimitivasEstoqueMateriaPrima } from './estoque-materia-prima.entity';
+const primeira_posicao_estoque = 0;
 export interface PropriedadesMateriaPrima {
   nome: Nome;
   descricao: string;
-  valorUnitario: Amount;
+  estoqueMateriaPrima?: EstoqueMateriaPrima[];
 }
 
 export interface PropriedadesPrimitivasMateriaPrima {
@@ -15,7 +20,7 @@ export interface PropriedadesPrimitivasMateriaPrima {
   descricao: string;
   dataInclusao: Date;
   dataAlteracao: Date;
-  valorUnitario: number;
+  estoqueMateriaPrima?: PropriedadesPrimitivasEstoqueMateriaPrima[];
 }
 export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
   protected readonly _id!: UUID;
@@ -29,23 +34,32 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
   }
 
   get valorUnitario(): Amount {
-    return this.props.valorUnitario;
+    if (!this.estoqueMateriaPrima) {
+      throw new ArgumentInvalidException('estoque nao encontrado');
+    }
+    return this.estoqueMateriaPrima[primeira_posicao_estoque].custoUnitario;
+  }
+
+  get estoqueMateriaPrima(): EstoqueMateriaPrima[] | undefined {
+    return this.props.estoqueMateriaPrima;
   }
 
   static create({
     nome,
     descricao,
-    valorUnitario,
+    estoqueMateriaPrima,
   }: Omit<
     PropriedadesPrimitivasMateriaPrima,
     'id' | 'dataAlteracao' | 'dataInclusao'
-  >): MateriaPrima {
+  > & {
+    estoqueMateriaPrima?: EstoqueMateriaPrima[];
+  }): MateriaPrima {
     return new MateriaPrima({
       id: UUID.generate(),
       props: {
         nome: new Nome(nome),
         descricao,
-        valorUnitario: new Amount(valorUnitario),
+        estoqueMateriaPrima,
       },
     });
   }
@@ -56,7 +70,7 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
     dataInclusao,
     descricao,
     nome,
-    valorUnitario,
+    estoqueMateriaPrima,
   }: PropriedadesPrimitivasMateriaPrima): MateriaPrima {
     return new MateriaPrima({
       id: new UUID(id),
@@ -65,7 +79,9 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
       props: {
         descricao,
         nome: new Nome(nome),
-        valorUnitario: new Amount(valorUnitario),
+        estoqueMateriaPrima: estoqueMateriaPrima?.map((e) =>
+          EstoqueMateriaPrima.fromPrimitives(e),
+        ),
       },
     });
   }
@@ -77,7 +93,9 @@ export class MateriaPrima extends Entity<PropriedadesMateriaPrima> {
       descricao: this.props.descricao,
       id: this.id.value,
       nome: this.nome.value,
-      valorUnitario: this.valorUnitario.value,
+      estoqueMateriaPrima: this.estoqueMateriaPrima?.map((e) =>
+        e.toPrimitives(),
+      ),
     };
   }
 }

@@ -1,12 +1,13 @@
 import { MateriaPrima } from '@domain/materia-prima/entities';
-import { Amount, DateVO, Nome, UUID } from '@domain/value-objects';
+import { DateVO, Nome, UUID } from '@domain/value-objects';
 
+import { EstoqueMateriaPrimaModel } from './estoque-materia-prima.model';
 import { Model } from './model';
 
 export class MateriaPrimaModel extends Model {
   nome!: string;
   descricao!: string;
-  valor_unitario!: number;
+  estoque_materia_prima?: EstoqueMateriaPrimaModel[];
 
   static toEntity({
     id,
@@ -14,7 +15,7 @@ export class MateriaPrimaModel extends Model {
     data_inclusao,
     nome,
     descricao,
-    valor_unitario,
+    estoque_materia_prima,
   }: MateriaPrimaModel): MateriaPrima {
     return new MateriaPrima({
       id: new UUID(id),
@@ -23,7 +24,9 @@ export class MateriaPrimaModel extends Model {
       props: {
         nome: new Nome(nome),
         descricao,
-        valorUnitario: new Amount(valor_unitario),
+        estoqueMateriaPrima: estoque_materia_prima?.map((e) =>
+          EstoqueMateriaPrimaModel.toEntity(e),
+        ),
       },
     });
   }
@@ -35,7 +38,9 @@ export class MateriaPrimaModel extends Model {
       data_inclusao: entity.dataInclusao.value,
       nome: entity.nome.value,
       descricao: entity.descricao,
-      valor_unitario: entity.valorUnitario.value,
+      estoque_materia_prima: entity.estoqueMateriaPrima?.map((e) =>
+        EstoqueMateriaPrimaModel.fromEntity(e),
+      ),
     };
   }
 }

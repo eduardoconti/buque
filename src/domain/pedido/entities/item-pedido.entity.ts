@@ -1,5 +1,8 @@
 import { Entity } from '@domain/core';
-import { MateriaPrima } from '@domain/materia-prima/entities';
+import {
+  EstoqueMateriaPrima,
+  MateriaPrima,
+} from '@domain/materia-prima/entities';
 import type { PropriedadesPrimitivasProduto } from '@domain/produto/entities';
 import { ProdutoMateriaPrima } from '@domain/produto/entities';
 import { Produto } from '@domain/produto/entities';
@@ -75,7 +78,10 @@ export class ItemPedido extends Entity<PropriedadesItemPedido> {
                       props: {
                         descricao: e.materiaPrima.descricao,
                         nome: new Nome(e.materiaPrima.nome),
-                        valorUnitario: new Amount(e.materiaPrima.valorUnitario),
+                        estoqueMateriaPrima:
+                          e.materiaPrima.estoqueMateriaPrima?.map((e) =>
+                            EstoqueMateriaPrima.fromPrimitives(e),
+                          ),
                       },
                     }),
                     quantidade: e.quantidade,

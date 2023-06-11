@@ -45,7 +45,13 @@ export class PedidoRepository implements IPedidoRepository {
             include: {
               produto: {
                 include: {
-                  produto_materia_prima: { include: { materia_prima: true } },
+                  produto_materia_prima: {
+                    include: {
+                      materia_prima: {
+                        include: { estoque_materia_prima: true },
+                      },
+                    },
+                  },
                 },
               },
             },
